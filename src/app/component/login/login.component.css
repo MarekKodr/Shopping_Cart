@@ -1,0 +1,24 @@
+.login {
+    width: 50%;
+    margin: 7% 0% 0% 25%;
+    border: solid 1px #C3C3C3;
+    border-radius: 15px;
+    background-color: #ECECEC;
+    padding: 2% 5% 5% 5%;
+}
+
+.login h1 {
+    color: #616161;
+}
+
+.byGoogle {
+    text-align: center;
+}
+
+.byGoogle p {
+    font-size: 20px;
+}
+
+.btn-google {
+    color: white !important;
+}
