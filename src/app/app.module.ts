@@ -22,6 +22,7 @@ import { CardComponent } from './component/card/card.component';
 import { GroupsComponent } from './component/groups/groups.component';
 import { FriendsComponent } from './component/friends/friends.component';
 import { AddlistComponent } from './component/addlist/addlist.component';
+import { ListComponent } from './component/list/list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AddlistComponent } from './component/addlist/addlist.component';
     CardComponent,
     GroupsComponent,
     FriendsComponent,
-    AddlistComponent
+    AddlistComponent,
+    ListComponent
   ],
   imports: [
     router,

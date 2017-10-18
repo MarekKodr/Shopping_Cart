@@ -8,18 +8,21 @@
         <input type="email" class="form-control" [(ngModel)]="emailName" [class.form-control-success]="!email.invalid" [class.form-control-danger]="email.invalid || !email.dirty || email.touched"
           placeholder="Email" name="email" #email="ngModel" maxlength="20" minlength="3" email>
       </div> -->
-      <div class="form-group" [class.has-success]="!email.invalid" [class.has-danger]="email.invalid || !email.dirty || email.touched">
+      <div class="form-group" [class.has-success]="!email.invalid" [class.has-danger]="email.invalid">
         <label>Email</label>
-        <input type="email" class="form-control" [(ngModel)]="emailName" [class.form-control-success]="!email.invalid" [class.form-control-danger]="email.invalid || !email.dirty || email.touched"
-          placeholder="Enter your email" name="email" #email="ngModel" maxlength="20" minlength="5">
+        <input type="email" class="form-control" [(ngModel)]="emailName" [class.form-control-success]="!email.invalid" [class.form-control-danger]="email.invalid"
+          placeholder="Enter your email" name="email" #email="ngModel">
         <!-- <div *ngIf="email.invalid || !email.dirty || email.touched" class="form-control-feedback">Sorry, wrong list name length. Try another?</div>
             <small *ngIf="email.invalid || !email.dirty || email.touched" class="form-text text-muted">The name must have 3-20 characters.</small> -->
       </div>
-      valid: {{email.valid}}
-      <div class="form-group" [class.has-success]="!password.invalid" [class.has-danger]="password.invalid || !password.dirty || password.touched">
+      valid: {{email.valid}} <br>
+      invalid: {{email.invalid}} <br>
+      dirty: {{email.dirty}} <br>
+      touched: {{email.touched}} <br>
+      <div class="form-group" [class.has-success]="password.valid" [class.has-danger]="!password.valid">
           <label>Password</label>
-          <input type="password" class="form-control" [(ngModel)]="passwordName" [class.form-control-success]="!password.invalid" [class.form-control-danger]="password.invalid || !password.dirty || password.touched"
-            placeholder="Password" name="password" #password="ngModel" maxlength="20" minlength="2">
+          <input type="password" class="form-control" [(ngModel)]="passwordName" [class.form-control-success]="password.valid" [class.form-control-danger]="!password.valid"
+            placeholder="Password" name="password" #password="ngModel" maxlength="20" minlength="5">
       </div>
       <div class="form-group row">
         <div class="col-sm-12">
