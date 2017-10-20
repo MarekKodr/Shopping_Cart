@@ -1,0 +1,20 @@
+.scroll {
+    padding-top: 5px;
+    height: 400px;
+    width: 800px;
+    overflow: scroll;
+}
+
+.scrollMenu {
+    width: 800px;
+    margin-left: 20px;
+}
+
+.scrollMenu .text {
+    margin-top: 4px;
+}
+
+.scrollMenu .search {
+    position: relative;
+    bottom: 5px;
+}

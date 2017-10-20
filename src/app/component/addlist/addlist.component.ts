@@ -11,6 +11,7 @@ import { Service } from '../../service/service';
 })
 export class AddlistComponent implements OnInit {
 
+ closeResult: String;
   items: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
 
@@ -25,6 +26,16 @@ export class AddlistComponent implements OnInit {
 
   open(content) {
     this.modalWindow = this.modalService.open(content);
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   private addList(name: string) {
