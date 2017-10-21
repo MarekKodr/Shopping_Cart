@@ -12,8 +12,8 @@
 
               <div class="form-group" [class.has-success]="!newName.invalid" [class.has-danger]="newName.invalid">
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" [(ngModel)]="listName" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"  
-                  placeholder="Enter list name (3-20 characters)" name="newName" #newName="ngModel" maxlength="20" minlength="3" required>
+                  <input type="text" class="form-control" [(ngModel)]="tmp" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"  
+                  placeholder="Enter list name (3-20 characters)" name="tmp" #newName="ngModel" maxlength="20" minlength="3" required>
                 </div>
               </div>
             

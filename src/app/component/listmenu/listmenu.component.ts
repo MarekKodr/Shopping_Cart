@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
@@ -18,7 +18,8 @@ export class ListmenuComponent implements OnInit {
 
   constructor(private modalService: NgbModal,
     public db: AngularFireDatabase,
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute,
+    private router: Router) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
@@ -45,6 +46,11 @@ export class ListmenuComponent implements OnInit {
 
   public updateList(newValue: string): void {
     this.items.update(this.id, { value: newValue });
+  }
+
+  public deleteList(): void {
+    this.item.remove();
+    this.router.navigate(['/lists']);
   }
 
 

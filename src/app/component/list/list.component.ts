@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+
+import { Service } from '../../service/service';
 
 @Component({
   selector: 'app-list',
@@ -15,10 +17,12 @@ export class ListComponent implements OnInit {
   food: FirebaseListObservable<any[]>;
   private id: string = '';
   private checked: string[] = [];
+  public tmp: string = '';
+
 
   constructor(private db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
-    private router: Router) {
+    public service: Service) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
@@ -35,23 +39,29 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
-  private addItem(name: string): void {
-    this.items.push({ value: name, lid: this.id });
-  }
-
-  public searchItems(name: string): void {
-    console.log('name: ' + name);
-    this.food = this.db.list('/food', {
+  public search(value: string) {
+    this.db.list('/food', {
       query: {
         orderByChild: 'value',
-        startAt: name
+        equalTo: value
       }
+    }).subscribe(queriedItems => {
+      return queriedItems.length;
     });
   }
 
-  public deleteList(): void {
-    this.item.remove();
-    this.router.navigate(['/lists']);
+  public searchItems(value: string): void {
+    //console.log('fce: ' + this.search(value));
+    this.food = this.db.list('/food', {
+      query: {
+        orderByChild: 'value',
+        startAt: value
+      }
+    });
+    this.food.forEach(i => {
+      //this.count = this.count + 1;
+    });
+    //console.log('counter: ' + this.count);
   }
 
   public onChange(id: string, flag): void {
@@ -63,10 +73,50 @@ export class ListComponent implements OnInit {
     }
   }
 
+  public resetChecked() {
+    this.checked = this.checked.filter(item => item.toString() == '' );
+  }
+
   public deleteItems(): void {
-    this.checked.forEach(element => {
-      this.items.remove(element);
+    this.checked.forEach(id => {
+      this.items.remove(id);
     });
+    this.resetChecked();
+  }
+
+  public bookItems(): void {
+    this.checked.forEach(id => {
+      this.items.update(id, { reserved: '1', email: this.service.user.email });
+    });
+    this.resetChecked();
+  }
+
+  public unSelect(): void {
+    this.checked.forEach(id => {
+      this.items.update(id, { reserved: '0', email: '' });
+    });
+    this.resetChecked();
+  }
+
+  public buyItems(): void {
+    this.checked.forEach(id => {
+      this.items.update(id, { reserved: '2', email: this.service.user.email });
+    });
+    this.resetChecked();
+  }
+
+  public getResult(reserved: string): string {
+    return reserved == '2' ? 'Purchased' : 'Reserved';
+  }
+
+  public increaseQuantity(id: string, newQuantity: number): void {
+    this.items.update(id, { quantity: ++newQuantity} );
+  }
+
+  public reduceQuantity(id: string, newQuantity: number): void {
+    if(newQuantity > 1) {
+      this.items.update(id, { quantity: --newQuantity} );
+    }
   }
 
 }

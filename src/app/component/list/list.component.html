@@ -1,59 +1,99 @@
 <div class="container">
   <h2>{{ (item | async)?.value }}</h2>
   <br>
-
   <div class="row">
     <br>
-    <div class="col-3">
+    <div class="col-2">
       <app-listmenu></app-listmenu>
     </div>
     <div class="col-8">
       <h4>Items:</h4>
       <div class="scrollMenu">
-
         <div class="row">
-          <div class="col-3"></div>
-          <div class="col-4">
-            <span class="text">delete selected items&nbsp;</span>
-            <button type="button" (click)="deleteItems()" class="btn btn-sm btn-primary">Delete</button>
-          </div>
-          <div class="row">
-            <div class="col-8">
-              <span class="search">
+          <a class="btn btn-warning" href="javascript:void(0)" (click)="unSelect()">
+              <i class="fa fa-unlock-alt" aria-hidden="true"></i> Debook</a> &nbsp;
+          <a class="btn btn-warning" href="javascript:void(0)" (click)="bookItems()">
+                  <i class="fa fa-lock" aria-hidden="true"></i> Book</a> &nbsp;
+          <a class="btn btn-success" href="javascript:void(0)" (click)="buyItems()">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy</a> &nbsp;
+          <a class="btn btn-danger" href="javascript:void(0)" (click)="deleteItems()">
+              <i class="fa fa-trash-o fa-lg"></i> Delete</a>
+          <span class="search">
               <input type="text" class="form-control" [(ngModel)]="searchItemName" name="searchItem" #searchItem="ngModel" id="formGroupExampleInput"
                 placeholder="Search item">
-              </span>
-            </div>
-            <div class="col">
-              <button type="button" (click)="searchItems(searchItem.value)" class="btn btn-sm btn-primary">Search</button>
-            </div>
-          </div>
+              </span>&nbsp;
+          <a class="btn btn-primary" href="javascript:void(0)" (click)="searchItems(searchItem.value)">
+                    <i class="fa fa-search" aria-hidden="true"></i> Search</a>
         </div>
       </div>
+      <br>
       <div class="scroll">
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let i of food | async">
-            <label class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="i.value" #cv [checked]=false                                       
-              (change)="onChange(i?.$key,cv.checked)">
-              <span class="custom-control-indicator"></span>
-              <span class="custom-control-description">{{i?.value}}</span>
-            </label>
-          </li>
-        </ul>
-      </div>
-      <br>
-      <form>
-        <h6>Add new item</h6>
-        <div class="row">
-          <div class="col-4">
-            <input type="text" class="form-control" [(ngModel)]="newItemName" name="newItem" #newItem="ngModel">
-          </div>
-          <button type="button" (click)="addItem(newItem.value)" class="btn btn-md btn-primary">Add</button>
-        </div>
-      </form>
-      <br>
-    </div>
-  </div>
+        <ul class="list-group" *ngFor="let i of food | async">
+          <li class="list-group-item" [class.reserved]="i?.reserved=='1'" [class.purchased]="i?.reserved=='2'">
 
+            <!-- ****************************************************************************** -->
+
+            <span *ngIf="i?.reserved!='2'">
+              
+              <div class="box_and_name">
+                <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="i.value" #cv [checked]=false                                       
+                  (change)="onChange(i?.$key,cv.checked)">
+                  <span class="custom-control-indicator"></span>
+                  <span class="custom-control-description">
+                    <b>{{i?.value}}</b>
+                  </span>
+              </label>
+            </div>
+
+            
+      <div class="quantity">
+        {{i?.quantity}} Ks
+      </div>
+      <div class="quantityButtons">
+        <a class="btn-sm btn-success" href="javascript:void(0)" (click)="increaseQuantity(i?.$key, i?.quantity)">
+                    <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="btn-sm btn-danger" href="javascript:void(0)" (click)="reduceQuantity(i?.$key, i?.quantity)">
+                    <i class="fa fa-minus" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="nodeOfItem">
+        {{i?.node}}
+      </div>
+
+      </span>
+      <!-- ****************************************************************************** -->
+
+      <span *ngIf="i?.reserved=='2'">
+      <div class="box_and_name">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          &nbsp;<b>{{i?.value}}</b>
+      </div>
+                <span class="quantity">
+                   {{i?.quantity}} Ks  
+                </span>
+                <div class="nodeOfItem"></div><div class="quantityButtons"></div>
+              </span>
+
+      <div class="buyer" *ngIf="i.reserved!='0'">
+              <div class="row">    
+                  {{getResult(i?.reserved)}} by: {{i?.email}}
+              </div>
+            </div>
+            
+
+      <div class="buyer none" *ngIf="i.reserved=='0'">
+              Nobady reserve this item.
+      </div>
+
+      <!-- ****************************************************************************** -->
+
+      </li>
+      </ul>
+    </div>
+    <br>
+    <app-add-item></app-add-item>
+    <br>
+  </div>
+</div>
 </div>

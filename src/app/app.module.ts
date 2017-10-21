@@ -24,6 +24,7 @@ import { FriendsComponent } from './component/friends/friends.component';
 import { AddlistComponent } from './component/addlist/addlist.component';
 import { ListComponent } from './component/list/list.component';
 import { ListmenuComponent } from './component/listmenu/listmenu.component';
+import { AddItemComponent } from './component/add-item/add-item.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ListmenuComponent } from './component/listmenu/listmenu.component';
     FriendsComponent,
     AddlistComponent,
     ListComponent,
-    ListmenuComponent
+    ListmenuComponent,
+    AddItemComponent
   ],
   imports: [
     router,

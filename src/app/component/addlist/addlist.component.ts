@@ -14,6 +14,7 @@ export class AddlistComponent implements OnInit {
  closeResult: String;
   items: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
+  public tmp: string = '';
 
   constructor(private modalService: NgbModal,
               public db: AngularFireDatabase,
@@ -41,5 +42,6 @@ export class AddlistComponent implements OnInit {
   private addList(name: string) {
     this.items.push({ value: name, uid: this.service.user.uid });
     this.modalWindow.close();
+    this.tmp='';
   }
 }
