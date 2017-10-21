@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Service } from '../../service/service';
+import { CapitalizePipe } from '../../pipe/capitalize.pipe';
 
 @Component({
   selector: 'app-list',
@@ -15,14 +17,17 @@ export class ListComponent implements OnInit {
   item: FirebaseObjectObservable<any>;
   items: FirebaseListObservable<any[]>;
   food: FirebaseListObservable<any[]>;
+  private modalWindow: NgbModalRef;
   private id: string = '';
   private checked: string[] = [];
   public tmp: string = '';
+  public count: number = 0;
 
 
   constructor(private db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
-    public service: Service) {
+    public service: Service,
+    private modalService: NgbModal) {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
@@ -39,6 +44,11 @@ export class ListComponent implements OnInit {
   ngOnInit() {
   }
 
+  open(content) {
+    //this.modalService.open(content);
+    this.modalWindow = this.modalService.open(content);
+  }
+
   public search(value: string) {
     this.db.list('/food', {
       query: {
@@ -51,17 +61,16 @@ export class ListComponent implements OnInit {
   }
 
   public searchItems(value: string): void {
-    //console.log('fce: ' + this.search(value));
-    this.food = this.db.list('/food', {
-      query: {
-        orderByChild: 'value',
-        startAt: value
-      }
-    });
-    this.food.forEach(i => {
-      //this.count = this.count + 1;
-    });
-    //console.log('counter: ' + this.count);
+    this.db.list('/food', {
+          query: {
+            orderByChild: 'value',
+            equalTo: value
+        }
+      }).subscribe(item => {
+        console.log('item: ' + item.length);
+        this.count = item.length;
+      });
+
   }
 
   public onChange(id: string, flag): void {
@@ -74,7 +83,7 @@ export class ListComponent implements OnInit {
   }
 
   public resetChecked() {
-    this.checked = this.checked.filter(item => item.toString() == '' );
+    this.checked = this.checked.filter(item => item.toString() == '');
   }
 
   public deleteItems(): void {
@@ -82,6 +91,7 @@ export class ListComponent implements OnInit {
       this.items.remove(id);
     });
     this.resetChecked();
+    this.modalWindow.close();
   }
 
   public bookItems(): void {
@@ -103,6 +113,7 @@ export class ListComponent implements OnInit {
       this.items.update(id, { reserved: '2', email: this.service.user.email });
     });
     this.resetChecked();
+    this.modalWindow.close();
   }
 
   public getResult(reserved: string): string {
@@ -110,12 +121,12 @@ export class ListComponent implements OnInit {
   }
 
   public increaseQuantity(id: string, newQuantity: number): void {
-    this.items.update(id, { quantity: ++newQuantity} );
+    this.items.update(id, { quantity: ++newQuantity });
   }
 
   public reduceQuantity(id: string, newQuantity: number): void {
-    if(newQuantity > 1) {
-      this.items.update(id, { quantity: --newQuantity} );
+    if (newQuantity > 1) {
+      this.items.update(id, { quantity: --newQuantity });
     }
   }
 

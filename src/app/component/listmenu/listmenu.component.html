@@ -12,20 +12,20 @@
           </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="javascript:void(0)" (click)="open(content)">
+      <a class="nav-link" href="javascript:void(0)" (click)="open(updateListModal)">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         Rename list
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="javascript:void(0)" (click)="deleteList()">
+      <a class="nav-link" href="javascript:void(0)" (click)="open(deleteListModal)">
           <i class="fa fa-times" aria-hidden="true"></i>
         Delete list
       </a>
     </li>
   </ul>
 
-  <ng-template #content let-c="close" let-d="dismiss">
+  <ng-template #updateListModal let-c="close" let-d="dismiss">
       <div class="modal-header">
         <h4 class="modal-title">Rename list </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -51,4 +51,21 @@
             <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
           </div>
       </form>
+    </ng-template>
+
+
+    <ng-template #deleteListModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete list</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete list {{(item | async)?.value | capitalize}}?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteList()">Delete</button>
+          <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancle</button>
+        </div>
     </ng-template>

@@ -25,7 +25,15 @@ export class AddItemComponent implements OnInit {
 
   private addItem(name: string, quantity: number, node: string): void {
     console.log('num: ' + quantity);
-    this.items.push({ value: name, quantity: quantity, node: node, lid: this.id, reserved: '0', email: '' });
+    for(var i = 0; i < quantity.toString().length; i++) {
+      if(quantity.toString().charAt(i) < '0' || quantity.toString().charAt(i) > '9') {
+        return;
+      }
+    }
+    if(!node) {
+      node = '';
+    }
+    this.items.push({ value: name.charAt(0).toUpperCase() + name.slice(1), quantity: quantity, node: node, lid: this.id, reserved: '0', email: '' });
   }
 
 }

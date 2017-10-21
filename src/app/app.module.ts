@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { router } from './app.router';
 import { firebaseConfig } from '../environments/firebase.config';
+import { CapitalizePipe } from './pipe/capitalize.pipe';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -41,7 +42,8 @@ import { AddItemComponent } from './component/add-item/add-item.component';
     AddlistComponent,
     ListComponent,
     ListmenuComponent,
-    AddItemComponent
+    AddItemComponent,
+    CapitalizePipe
   ],
   imports: [
     router,

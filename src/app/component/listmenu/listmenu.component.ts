@@ -50,6 +50,7 @@ export class ListmenuComponent implements OnInit {
 
   public deleteList(): void {
     this.item.remove();
+    this.modalWindow.close();
     this.router.navigate(['/lists']);
   }
 
