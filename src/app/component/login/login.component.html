@@ -9,16 +9,19 @@
           placeholder="Enter your email" name="email" #email="ngModel" required email>
       </div>
       <div class="form-group" [class.has-success]="password.valid" [class.has-danger]="!password.valid">
-          <label>Password</label>
-          <input type="password" class="form-control" [(ngModel)]="passwordName" [class.form-control-success]="password.valid" [class.form-control-danger]="!password.valid"
-            placeholder="Password" name="password" #password="ngModel" maxlength="20" minlength="5" required>
+        <label>Password</label>
+        <input type="password" class="form-control" [(ngModel)]="passwordName" [class.form-control-success]="password.valid" [class.form-control-danger]="!password.valid"
+          placeholder="Password" name="password" #password="ngModel" maxlength="20" minlength="5" required>
       </div>
       <div class="form-group row">
         <div class="col-sm-12">
-          <button type="submit" [disabled]="email.invalid || password.invalid" class="btn btn-block btn-primary">Sign in</button>
+          <button type="submit" [disabled]="email.invalid || password.invalid" class="btn btn-block btn-primary" (click)="login(email.value, password.value)">Sign in</button>
         </div>
       </div>
     </form>
+    
+    <app-registration></app-registration>
+
     <div class="byGoogle">
       <p>or</p>
       <a class="btn btn-block btn-social btn-google" (click)="authentication()">

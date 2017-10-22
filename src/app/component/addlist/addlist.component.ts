@@ -3,6 +3,7 @@ import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-boo
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 
 import { Service } from '../../service/service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-addlist',
@@ -11,15 +12,12 @@ import { Service } from '../../service/service';
 })
 export class AddlistComponent implements OnInit {
 
- closeResult: String;
-  items: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
   public tmp: string = '';
 
   constructor(private modalService: NgbModal,
-              public db: AngularFireDatabase,
-              public service: Service) {
-    this.items = db.list('/items');
+    public db: AngularFireDatabase,
+    public service: Service) {
   }
 
   ngOnInit() {
@@ -29,19 +27,12 @@ export class AddlistComponent implements OnInit {
     this.modalWindow = this.modalService.open(content);
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+  private addList(name: string) { // upravit
+    let dbRef = this.db.list('/lists').push({ name: name });
+    firebase.database().ref('lists/' + dbRef.key + '/users').child(this.service.user.uid).set({ email: this.service.user.email, foto: this.service.user.photoURL });
+    firebase.database().ref('users/' + this.service.user.uid + '/lists').child(dbRef.key).set({ name:  name});
 
-  private addList(name: string) {
-    this.items.push({ value: name, uid: this.service.user.uid });
     this.modalWindow.close();
-    this.tmp='';
+    this.tmp = '';
   }
 }

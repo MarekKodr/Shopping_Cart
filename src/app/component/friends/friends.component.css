@@ -1,0 +1,29 @@
+.user_photo {
+    border-radius: 50%;
+}
+
+.myButton {
+    background-color: white;
+}
+
+.friend {
+    margin-top: -2px;
+}
+
+.row {
+    width: 48rem;
+}
+.card {
+    margin: 10px 0px 0px 10px;
+    border-bottom-width: 2px;
+    /* position: relative;
+    z-index: -1; */
+}
+
+.btn {
+    margin-right: 1%;
+}
+
+.search {
+    margin: -4% 0% 0% 70%;
+}

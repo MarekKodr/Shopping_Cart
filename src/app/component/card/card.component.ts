@@ -10,20 +10,13 @@ import { Service } from '../../service/service';
 })
 export class CardComponent implements OnInit {
 
-  items: FirebaseListObservable<any[]>;
+  public lists: FirebaseListObservable<any[]>;
 
-    constructor(public db: AngularFireDatabase,
-                public service: Service) {
-//      this.items = db.list('/items');
-      this.items = db.list('/items', {
-      query: {
-        orderByChild: 'uid',
-        equalTo: service.user.uid
-      }
-    });
-    }
-
-  ngOnInit() {
+  constructor(public db: AngularFireDatabase,
+    public service: Service) {
   }
 
+  ngOnInit() {
+    this.lists = this.db.list('users/' + this.service.user.uid + '/lists');
+  }
 }

@@ -1,0 +1,12 @@
+<ul class="nav flex-column">
+
+  <li class="nav-item">
+    <h1> ID: {{parid}}</h1>
+    <a class="nav-link" [routerLink]="['/group', {id: parid}]">
+      <i class="fa fa-address-book" aria-hidden="true"></i> Friends
+    </a>
+  </li>
+
+  <app-group-edit-menu></app-group-edit-menu>
+
+</ul>

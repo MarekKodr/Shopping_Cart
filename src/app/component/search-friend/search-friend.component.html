@@ -1,0 +1,21 @@
+<div class="position">
+  <div class="row">
+    <div class="column">
+      <input type="text" class="form-control" placeholder="Search new friends..." (input)="search($event)">
+    </div>
+
+    <a class="btn btn-primary" href="javascript:void(0)">
+         <i class="fa fa-search" aria-hidden="true"></i> Search
+      </a>
+  </div>
+
+  <div class="searchResult">
+    <ul class="list-group" style="width: 23rem; height: 3rem" *ngFor="let user of users">
+      <li class="list-group-item">
+        <img src={{user?.foto}} width="20" height="20"> {{user?.email}}
+        <button class="btn-link" (click)="addFriend(user.$key, user.email, user.foto)"> <i class="fa fa-star-o" aria-hidden="true"></i> </button>
+      </li>
+    </ul>
+  </div>
+
+</div>

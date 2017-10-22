@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import { Service } from '../../service/service';
 
 @Component({
   selector: 'app-groups',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./groups.component.css']
 })
 export class GroupsComponent implements OnInit {
+  public groups: FirebaseListObservable<any[]>;
 
-  constructor() { }
+  constructor(public db: AngularFireDatabase,
+    public service: Service) {
 
-  ngOnInit() {
   }
 
+  ngOnInit() {
+    this.groups = this.db.list('users/' + this.service.user.uid + '/groups');
+  }
 }
+

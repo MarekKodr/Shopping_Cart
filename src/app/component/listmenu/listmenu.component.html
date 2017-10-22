@@ -1,71 +1,122 @@
 <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" (click)="open(shareListModal)">
           <i class="fa fa-share-alt" aria-hidden="true"></i>
           Share list
         </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">
             <i class="fa fa-download" aria-hidden="true"></i>
             Download list
           </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="javascript:void(0)" (click)="open(updateListModal)">
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" (click)="open(updateListModal)">
           <i class="fa fa-pencil" aria-hidden="true"></i>
         Rename list
       </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="javascript:void(0)" (click)="open(deleteListModal)">
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" (click)="open(deleteListModal)">
           <i class="fa fa-times" aria-hidden="true"></i>
         Delete list
       </a>
-    </li>
-  </ul>
+  </li>
+</ul>
 
-  <ng-template #updateListModal let-c="close" let-d="dismiss">
-      <div class="modal-header">
-        <h4 class="modal-title">Rename list </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+
+
+<ng-template #updateListModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Rename list </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="inputName" class="col-sm-10 col-form-label">List name:</label>
+
+        <div class="form-group" [class.has-success]="!newName.invalid" [class.has-danger]="newName.invalid">
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="name" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"
+              placeholder="Enter list name (3-20 characters)" name="newName" #newName="ngModel" maxlength="20" minlength="3"
+              required>
+          </div>
+        </div>
+
       </div>
-      <form>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="inputName" class="col-sm-10 col-form-label">List name:</label>
-  
-                <div class="form-group" [class.has-success]="!newName.invalid" [class.has-danger]="newName.invalid">
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" [(ngModel)]="item.value" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"  
-                    placeholder="Enter list name (3-20 characters)" name="newName" #newName="ngModel" maxlength="20" minlength="3" required>
-                  </div>
-                </div>
-              
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" [disabled]="newName.invalid" class="btn btn-primary" (click)="updateList(newName.value)">Save</button>
-            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-          </div>
-      </form>
-    </ng-template>
+    </div>
+    <div class="modal-footer">
+      <button type="button" [disabled]="newName.invalid" class="btn btn-primary" (click)="updateList(name)">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>
 
 
-    <ng-template #deleteListModal let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <h4 class="modal-title">Delete list</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+<ng-template #deleteListModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete list</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete list {{(item | async)?.name | capitalize}}?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="deleteList()">Delete</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancle</button>
+  </div>
+</ng-template>
+
+
+
+<!-- Share -->
+
+<ng-template #shareListModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Share list </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+  </div>
+  <form>
+
+    <div class="modal-body">
+
+      <div *ngIf="shared">
+        Shared...
+        <div *ngFor="let gr of group | async">
+          This list is already shared with group : {{gr | json}}{{ gr?.name }} {{gr.$key}}.
         </div>
-        <div class="modal-body">
-          <p>Are you sure you want to delete list {{(item | async)?.value | capitalize}}?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="deleteList()">Delete</button>
-          <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancle</button>
-        </div>
-    </ng-template>
+      </div>
+
+      <div *ngIf="shared==false">
+        This is not alredy shares
+      </div>
+
+      <!-- <div class="form-group">
+        <label for="inputName" class="col-sm-10 col-form-label">Share with:</label>
+
+        <div class="form-group" [class.has-success]="!newName.invalid" [class.has-danger]="newName.invalid">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" [(ngModel)]="name" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"
+                placeholder="Enter list name (3-20 characters)" name="newName" #newName="ngModel" maxlength="20" minlength="3"
+                required>
+            </div>
+          </div>
+
+      </div> -->
+
+    </div>
+
+    <!-- <div class="modal-footer">
+      <button type="button" [disabled]="newName.invalid" class="btn btn-primary" (click)="updateList(name)">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div> -->
+  </form>
+</ng-template>

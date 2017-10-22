@@ -1,13 +1,16 @@
+
 export class User {
-    constructor(id,name,photo) {
+    public photoURL: string;
+    public uid: string;
+    public email: string;
+    public password: string;
+    
+    constructor(id? : string, name? : string, photo?: any) {
         this.photoURL = photo;
         this.email = name;
         this.uid = id;
     }
-    public photoURL: string;
-    public uid: string;
-    public email: string;
-
+    
     public setNull() {
         this.photoURL = '';
         this.email = '';

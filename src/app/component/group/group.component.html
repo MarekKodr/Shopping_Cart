@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+
+    <h2> &nbsp;&nbsp;&nbsp;&nbsp;{{ (group | async)?.name }}</h2>
+    <div class="search">
+      <app-search-in-group [groupName]="(group | async)?.name"></app-search-in-group>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <br>
+    <div class="menu">
+      <app-groupmenu></app-groupmenu>
+    </div>
+
+    <div class="members">
+
+      <h4>Members:</h4>
+      <br>
+
+      <div class="card" style="width: 22rem;" *ngFor="let friend of users | async">
+
+        <ul class=" list-group">
+          <li class="list-group-item">
+            <img src={{friend?.foto}} width="40" height="40">
+            <div class="user">
+              {{friend.email}}
+            </div>
+            <div class="btn">
+              <button class="btn-link" (click)="deleteFriend(friend.$key) "> <i class="fa fa-times " aria-hidden="true "></i> </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <br>
+      <br>
+
+    </div>
+  </div>
+
+</div>

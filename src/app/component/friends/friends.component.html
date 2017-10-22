@@ -1,3 +1,38 @@
-<p>
-  friends works!
-</p>
+<div class="container">
+  <br>
+  <h3>My Friends</h3>
+  <br>
+  <div class="search">
+    <app-search-friend></app-search-friend>
+  </div>
+
+  <div class="column">
+    <div class="row">
+      <div class="card" style="width: 22rem;" *ngFor="let friend of friends | async">
+
+        <ul class="list-group">
+          <li class="list-group-item">
+            <img class="user_photo" src={{friend?.foto}} width="40" height="40"> &nbsp; &nbsp;
+            <div class="friend"> {{ friend?.email }} </div>
+
+            <div class="btn">
+              <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
