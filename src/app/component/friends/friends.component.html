@@ -1,0 +1,29 @@
+<div class="container">
+  <h3>My Friends</h3>
+
+  <br>
+  <app-search-friend name="friend"></app-search-friend>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="column">
+    <div class="card" style="width: 20rem;">
+
+      <div *ngFor="let friend of friends | async">
+        <ul class="list-group">
+          <li class="list-group-item">
+
+            <p> {{ (findFriend(friend.friend1)).email }} </p>
+            <!-- <p>  {{(myFriend | async )?.email }} </p> -->
+            <!-- <p>  {{ findFriend(friend.friend1)  }} </p> -->
+            <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.right-menu {
+    width: 400px;
+    color: white;
+}
+
+.user-email {
+    position: relative;
+    right:10px;
+    top: 9px;
+}
+
+.user-img {
+    position: relative;
+    top: 9px;
+    left: 60px;
+}
+
+.user-img img {
+    border-radius: 50%;
+}

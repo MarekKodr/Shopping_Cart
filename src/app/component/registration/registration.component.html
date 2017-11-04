@@ -1,0 +1,44 @@
+<!-- <button class="btn btn-outline-primary" (click)="open(content)">Add list</button> -->
+<!-- <span *ngFor="let i of users | async">
+  mail: {{i.email}} <br>
+</span>   -->
+
+<div class="registration">
+  If you are not registred, you can <button class="btn-link" (click)="open(content)">registre here</button>
+</div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+
+  <!-- header -->
+  <div class="modal-header" style="background-color: #3333ff;">
+    <h4 class="modal-title" style="color:#FFFFFF;">Registration</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <!-- body -->
+
+
+  <div class="modal-body">
+    <!-- {{this.service.user | json}} -->
+
+    <form (ngSubmit)="addNewUser()">
+      <div class="form-group">
+        <div class="form-group" [class.has-success]="!email.invalid" [class.has-danger]="email.invalid">
+          <label>Write your email</label>
+          <input name="email" #email="ngModel" [(ngModel)]="user.email" [class.form-control-success]="!email.invalid" [class.form-control-danger]="email.invalid"
+            type="text" class="form-control" email required>
+        </div>
+        <br>
+        <div class="form-group" [class.has-success]="password.valid" [class.has-danger]="!password.valid">
+          <label>Write your password</label>
+          <input name="password" #password="ngModel" maxlength="20" minlength="1" required [(ngModel)]="user.password" [class.form-control-success]="password.valid"
+            [class.form-control-danger]="!password.valid" type="text" class="form-control">
+        </div>
+      </div>
+      <button type="submit" [disabled]="email.invalid || password.invalid" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</ng-template>

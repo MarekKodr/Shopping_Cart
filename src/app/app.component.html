@@ -1,0 +1,18 @@
+<div *ngIf="service.user?.uid">
+    <app-navbar></app-navbar>
+    <br>
+    <!-- <app-footer></app-footer> -->
+</div>
+
+<div *ngIf="!(service.user?.uid)">
+    <div *ngIf="router.url!='/login'">
+         <app-welcome></app-welcome> 
+    </div>
+</div>
+
+<router-outlet></router-outlet>
+
+<div *ngIf="service.user?.uid">
+    <br>
+    <app-footer></app-footer>
+</div>
