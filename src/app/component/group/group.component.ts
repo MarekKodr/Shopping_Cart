@@ -10,14 +10,13 @@ import { Service } from '../../service/service';
 })
 export class GroupComponent implements OnInit {
   public group: FirebaseObjectObservable<any>;
-  public friends: FirebaseListObservable<any[]>;
-  public actFriend: FirebaseObjectObservable<any>;
+  public users: FirebaseListObservable<any[]>;
   private idpar: string = '';
 
   constructor(private db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
     public actUser: Service) {
-      
+
   }
 
   ngOnInit() {
@@ -25,15 +24,11 @@ export class GroupComponent implements OnInit {
       this.idpar = params['id'];
     });
     this.group = this.db.object('groups/' + this.idpar);
-    this.friends = this.db.list('groups/' + this.idpar + '/friends');
+    this.users = this.db.list('groups/' + this.idpar + '/users');
   }
 
-  public findFriend(id: string): any {
-    // this.actFriend = this.db.object('users/' + id);
-    // return this.actFriend;
-  }
-
-  public deleteFriend(id: string): void {
-    this.db.object('groups/' + this.idpar + '/friends/' + id).remove()
+  public deleteFriend(id: string): void { 
+    this.db.object('groups/' + this.idpar + '/users/' + id).remove();
+    this.db.object('users/' + id + '/groups/' + this.idpar).remove();
   }
 }

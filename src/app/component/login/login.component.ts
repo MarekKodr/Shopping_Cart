@@ -6,7 +6,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-
 import { User } from '../../model/user';
 import { Service } from '../../service/service';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -21,43 +20,47 @@ export class LoginComponent implements OnInit {
 
   user: Observable<firebase.User>;
   public myUser: User;
-  public loginFaild: boolean; //--
-  public auth: boolean;
 
   constructor(public afAuth: AngularFireAuth,
     public userService: Service,
     private router: Router) {
-
     this.user = afAuth.authState;
     afAuth.authState.subscribe((user: firebase.User) => {
       if (user) {
-        this.userService.user = new User(user.uid, user.email, user.photoURL);
-        this.myUser = new User(user.uid, user.email, user.photoURL);
-        let dbRef: firebase.database.Reference = firebase.database().ref('users').child(this.userService.user.uid);
-        dbRef.set({ email: this.userService.user.email });
+        this.userService.user = new User(user.uid, user.email, this.getUsePhotoURL(user.photoURL));
+        this.myUser = new User(user.uid, user.email, this.getUsePhotoURL(user.photoURL));
+        let usersRef = firebase.database().ref('/users');
+
+        usersRef.child(user.uid).once('value', function (snapshot) {
+          let exists = (snapshot.val() !== null);
+          if (!exists) {
+            console.log('uzivatel neexistuje!!');
+            firebase.database().ref('users').child(this.userService.user.uid)
+              .set({ email: this.userService.user.email, foto: this.userService.user.photoURL });
+          }
+        })
         this.router.navigate(['/lists']);
-        this.loginFaild = false;
       } else {
         this.userService.user = null;
-        this.loginFaild = true;
       }
     });
 
   }
 
+  public getUsePhotoURL(photoURL: string): string {
+    return !photoURL ? '../../assets/images/user.png' : photoURL;
+  }
+
   public authentication() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) {});
-    this.auth = true;
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function (result) { });
   }
 
   public login(email, password): void {
-    this.afAuth.auth.signInWithEmailAndPassword(email, password).then(function (result) {});
-    this.auth = true;
+    this.afAuth.auth.signInWithEmailAndPassword(email, password).then(function (result) { });
   }
 
   ngOnInit() {
     this.myUser = new User('', '', '');
-    this.auth = false;
   }
 
 

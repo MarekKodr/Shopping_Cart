@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     this.user.subscribe(
       (user: firebase.User) => {
         if (user) {
-          this.myUser.setUser(user.uid, user.email, user.photoURL);
+          this.myUser.setUser(user.uid, user.email, this.getUsePhotoURL(user.photoURL));
           this.service.user = this.myUser;
         }
       }
@@ -39,6 +39,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.myUser = new User('', '', '');
+  }
+
+  public getUsePhotoURL(photoURL: string) : string{
+    return !photoURL ? '../../assets/images/user.png' : photoURL; 
   }
 
 }

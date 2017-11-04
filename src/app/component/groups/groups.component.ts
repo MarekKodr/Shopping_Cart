@@ -11,17 +11,12 @@ export class GroupsComponent implements OnInit {
   public groups: FirebaseListObservable<any[]>;
 
   constructor(public db: AngularFireDatabase,
-    public service: Service) { 
-      
-    }
+    public service: Service) {
+
+  }
 
   ngOnInit() {
-    this.groups = this.db.list('/groups', {
-      query: {
-        orderByChild: 'uid',
-        equalTo: this.service.user.uid
-      }
-    });
+    this.groups = this.db.list('users/' + this.service.user.uid + '/groups');
   }
 }
 

@@ -8,20 +8,18 @@ import { User } from '../../model/user';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-  selector: 'app-search-friend',
-  templateUrl: './search-friend.component.html',
-  styleUrls: ['./search-friend.component.css']
+  selector: 'app-search-in-group',
+  templateUrl: './search-in-group.component.html',
+  styleUrls: ['./search-in-group.component.css']
 })
+export class SearchInGroupComponent implements OnInit {
 
+  @Input() groupName: string;
 
-
-export class SearchFriendComponent implements OnInit {
-
-  @Input() name: string;
-  
   public user: FirebaseListObservable<any>;
   public users: any[];
   public idpar: string;
+  
   startWith = new Subject();
   endWith = new Subject();
 
@@ -44,15 +42,13 @@ export class SearchFriendComponent implements OnInit {
     });
   }
 
-  public addFriend(id: string, email: string, foto: any ): void {
-    let dbRef: any;
-    if (this.name == "friend") {
-      dbRef = firebase.database().ref('/users/' + this.actUser.user.uid + '/friends');
-    }
-    else {
-      dbRef = firebase.database().ref('/groups/' + this.idpar + '/friends');
-    }
-    dbRef.child(id).set({ email: email, foto: foto });
+  public addFriend(idfriend: string, email: string, foto: any): void {
+    console.log('idgroup: ', this.idpar);
+    console.log('idfriend:', idfriend);
+    console.log('groupName: ', this.groupName);
+
+    firebase.database().ref('groups/' + this.idpar + '/users').child(idfriend).set({ email: email, foto: foto });
+    firebase.database().ref('/users/' + idfriend + '/groups').child(this.idpar).set({ name: this.groupName });
   }
 
   public search($event: any): void {

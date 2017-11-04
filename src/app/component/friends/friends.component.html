@@ -4,21 +4,16 @@
   <br>
   <app-search-friend name="friend"></app-search-friend>
   <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
   <div class="column">
     <div class="card" style="width: 20rem;">
-
       <div *ngFor="let friend of friends | async">
         <ul class="list-group">
           <li class="list-group-item">
+            <img class="user_photo" src={{friend?.foto}} width="30" height="30">
+            &nbsp;
+            &nbsp;
+            <p> {{ friend?.email }} </p>
 
-            <p> {{ (findFriend(friend.friend1)).email }} </p>
-            <!-- <p>  {{(myFriend | async )?.email }} </p> -->
-            <!-- <p>  {{ findFriend(friend.friend1)  }} </p> -->
             <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
           </li>
         </ul>

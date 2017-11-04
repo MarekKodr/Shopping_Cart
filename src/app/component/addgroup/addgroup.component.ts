@@ -11,37 +11,30 @@ import * as firebase from 'firebase/app';
   styleUrls: ['./addgroup.component.css']
 })
 export class AddgroupComponent implements OnInit {
-  closeResult: String;
-  items: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
+  public groups: FirebaseListObservable<any[]>;
 
 
   constructor(private modalService: NgbModal,
-    public db: AngularFireDatabase,
-    public actUser: Service) { }
+    public actUser: Service,
+    public db: AngularFireDatabase) {
+
+  }
 
   ngOnInit() {
-    
-    
+    this.groups = this.db.list('/users/' + this.actUser.user.uid + '/groups');
   }
 
   open(content) {
     this.modalWindow = this.modalService.open(content);
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
 
   private addGroup(name: string) {
-    let dbRef = firebase.database().ref('/groups').push({ uid: this.actUser.user.uid, name: name });
-    firebase.database().ref('/groups/' + dbRef.key + '/friends').push({ uid: this.actUser.user.uid });
+    let dbRef = this.groups.push({ name: name });
+    firebase.database().ref('/groups').child(dbRef.key).set({ name: name });
+    firebase.database().ref('/groups/' + dbRef.key + '/users')
+      .child(this.actUser.user.uid).set({ email: this.actUser.user.email, foto: this.actUser.user.photoURL });
     this.modalWindow.close();
   }
 }

@@ -2,7 +2,7 @@
 
   <li class="nav-item">
     <h1> ID: {{parid}}</h1>
-    <a class="nav-link" routerLink="['/group', {parid}]">
+    <a class="nav-link" [routerLink]="['/group', {id: parid}]">
       <i class="fa fa-address-book" aria-hidden="true"></i> Friends
     </a>
   </li>

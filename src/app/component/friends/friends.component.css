@@ -1,5 +1,6 @@
-
-
+.user_photo {
+    border-radius: 50%;
+}
 
 .myButton {
     background-color: white;

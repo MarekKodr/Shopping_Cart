@@ -21,8 +21,6 @@ import { Service } from '../../service/service';
 })
 export class FriendsComponent implements OnInit {
 
-  public myFriend: FirebaseObjectObservable<User>;
-  public friend: FirebaseObjectObservable<any>;
   public friends: FirebaseListObservable<any[]>;
 
   constructor(public db: AngularFireDatabase, 
@@ -34,12 +32,6 @@ export class FriendsComponent implements OnInit {
   }
 
   public deleteFriend(id: string): void {
-    // this.db.object('/friends/' + id).remove();
-  }
-
-  public findFriend(id: string): FirebaseObjectObservable<User> {
-    // return id;
-    return  this.db.object('/users/' + id);
-    // this.myFriend =   this.db.object('/users/' + id);
+    this.db.object('/friends/' + id).remove();
   }
 }

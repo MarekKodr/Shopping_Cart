@@ -36,6 +36,7 @@ import { AddItemComponent } from './component/add-item/add-item.component';
 import { GroupListsComponent } from './component/group-lists/group-lists.component';
 import { GroupListsMenuComponent } from './component/group-lists-menu/group-lists-menu.component';
 import { AddListToGroupComponent } from './component/add-list-to-group/add-list-to-group.component';
+import { SearchInGroupComponent } from './component/search-in-group/search-in-group.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { AddListToGroupComponent } from './component/add-list-to-group/add-list-
     AddItemComponent,
     GroupListsComponent,
     GroupListsMenuComponent,
-    AddListToGroupComponent
+    AddListToGroupComponent,
+    SearchInGroupComponent
   ],
   imports: [
     router,
