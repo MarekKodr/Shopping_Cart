@@ -1,13 +1,13 @@
 <div class="column">
     <div class="row">
-        <div class="card" style="width: 15rem;" *ngFor="let list of lists | async">
+        <div class="card" style="width: 15rem;" *ngFor="let item of items | async">
             <div class="card-header">
                 <img class="card-img-top" src="../assets/images/food-icon.png" alt="Card image cap">
             </div>
             <div class="card-block">
-                <h4 class="card-title"> {{list.name}}</h4>
+                <h4 class="card-title">{{item.value}}</h4>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a [routerLink]="['/list', {id: list.$key}]" class="btn btn-primary">Show details</a>
+                <a [routerLink]="['/list', {id: item.$key}]" class="btn btn-primary">Show details</a>
             </div>
             <div class="card-footer">
                 <small class="text-muted">Last updated 3 mins ago</small>

@@ -1,81 +1,20 @@
 .scroll {
     padding-top: 5px;
     height: 400px;
-    width: 900px;
+    width: 800px;
     overflow: scroll;
 }
 
 .scrollMenu {
-    width: 900px;
+    width: 800px;
     margin-left: 20px;
 }
 
-.search {
-    margin-left: 190px;
+.scrollMenu .text {
+    margin-top: 4px;
 }
 
-.fa.fa-check {
-    color: green;
-}
-
-.box_and_name {
+.scrollMenu .search {
     position: relative;
-    float: left;
-    width: 210px;
-    margin-right: 10px;
-    overflow: hidden;
-}
-
-.quantity {
-    float: left;
-    width: 50px;
-}
-
-.quantityButtons {
-    float: left;
-    width: 80px;
-}
-
-.nodeOfItem {
-    float: left;
-    left: 360px;
-    color: #4D4D4D;
-    font-size: 13px;
-    width: 220px;
-    height: 24px;
-    overflow: hidden;
-}
-
-.buyer {
-    float: left;
-    padding-left: 50px;
-    color: #9F9F9F;
-    font-size: 13px;
-    margin-top: -7px;
-}
-
-.buyer.none {
-   margin-left: -15px; 
-}
-
-.list-group-item:hover {
-    background-color: #F2F3F2;
-}
-
-.list-group-item.reserved {
-    background-color: #FFF5BE;
-    border: solid 1px #FFF1A3;
-}
-
-.list-group-item.reserved:hover {
-    background-color: #FFF5CA;
-}
-
-.list-group-item.purchased {
-    background-color: #D7FFD7;
-    border: solid 1px #AFFFAF;
-}
-
-.list-group-item.purchased:hover {
-    background-color: #EAFFEA;
+    bottom: 5px;
 }
