@@ -23,12 +23,12 @@ export class FriendsComponent implements OnInit {
 
   public friends: FirebaseListObservable<any[]>;
 
-  constructor(public db: AngularFireDatabase, 
-              public actUser: Service) {
+  constructor(public db: AngularFireDatabase,
+    public actUser: Service) {
+    this.friends = this.db.list('/users/' + this.actUser.user.uid + '/friends');
   }
 
   ngOnInit() {
-    this.friends = this.db.list('/users/' + this.actUser.user.uid + '/friends');
   }
 
   public deleteFriend(id: string): void {

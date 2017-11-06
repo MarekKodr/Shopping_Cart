@@ -14,8 +14,10 @@ import { CapitalizePipe } from '../../pipe/capitalize.pipe';
 })
 export class ListComponent implements OnInit {
 
-  item: FirebaseObjectObservable<any>;
+  list: FirebaseObjectObservable<any>;
+
   items: FirebaseListObservable<any[]>;
+
   food: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
   private id: string = '';
@@ -31,8 +33,10 @@ export class ListComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
-    this.item = db.object('/items/' + this.id);
+
+    this.list = db.object('/lists/' + this.id);
     this.items = db.list('/food');
+    
     this.food = db.list('/food', {
       query: {
         orderByChild: 'lid',
@@ -45,7 +49,6 @@ export class ListComponent implements OnInit {
   }
 
   open(content) {
-    //this.modalService.open(content);
     this.modalWindow = this.modalService.open(content);
   }
 

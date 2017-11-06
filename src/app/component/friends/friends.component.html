@@ -2,23 +2,22 @@
   <h3>My Friends</h3>
 
   <br>
-  <app-search-friend name="friend"></app-search-friend>
+  <app-search-friend></app-search-friend>
   <br>
-  <div class="column">
-    <div class="card" style="width: 20rem;">
-      <div *ngFor="let friend of friends | async">
-        <ul class="list-group">
-          <li class="list-group-item">
-            <img class="user_photo" src={{friend?.foto}} width="30" height="30">
-            &nbsp;
-            &nbsp;
-            <p> {{ friend?.email }} </p>
 
-            <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
-          </li>
-        </ul>
-      </div>
 
+  <div class="row">
+    <div *ngFor="let friend of friends | async">
+
+      <ul class="list-group">
+        <!-- <div class="row"> -->
+        <li class="list-group-item" style="width: 35rem;">
+          <img class="user_photo" src={{friend?.foto}} width="40" height="40"> &nbsp; &nbsp;
+          <div class="friend"> {{ friend?.email }} </div>
+
+          <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </li>
+        <!-- </div> -->
+      </ul>
     </div>
   </div>
-</div>

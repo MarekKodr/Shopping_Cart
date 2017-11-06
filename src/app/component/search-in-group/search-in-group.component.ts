@@ -43,10 +43,6 @@ export class SearchInGroupComponent implements OnInit {
   }
 
   public addFriend(idfriend: string, email: string, foto: any): void {
-    console.log('idgroup: ', this.idpar);
-    console.log('idfriend:', idfriend);
-    console.log('groupName: ', this.groupName);
-
     firebase.database().ref('groups/' + this.idpar + '/users').child(idfriend).set({ email: email, foto: foto });
     firebase.database().ref('/users/' + idfriend + '/groups').child(this.idpar).set({ name: this.groupName });
   }

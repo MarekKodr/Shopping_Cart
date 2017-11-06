@@ -10,21 +10,20 @@ import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase }
 })
 export class ListmenuComponent implements OnInit {
 
-  closeResult: String;
   items: FirebaseListObservable<any[]>;
   item: FirebaseObjectObservable<any>;
   private modalWindow: NgbModalRef;
-  private id: string;
+  private parid: string;
 
   constructor(private modalService: NgbModal,
     public db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
     private router: Router) {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.id = params['id'];
+      this.parid = params['id'];
     });
     this.items = db.list('/items');
-    this.item = db.object('/items/' + this.id);
+    // this.item = db.object('/items/' + this.id);
   }
 
   ngOnInit() {
@@ -34,26 +33,27 @@ export class ListmenuComponent implements OnInit {
     this.modalWindow = this.modalService.open(content);
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  public updateList(newValue: string): void {
+    // this.items.update(this.id, { value: newValue });
   }
 
-  public updateList(newValue: string): void {
-    this.items.update(this.id, { value: newValue });
-  }
 
   public deleteList(): void {
-    this.item.remove();
+    this.db.list('lists/' + this.parid + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        this.db.list('users/' + snapshot.key + '/lists/' + this.parid).remove();
+      })
+    }).unsubscribe(); // delete list from users
+
+    this.db.list('lists/' + this.parid + '/groups', { preserveSnapshot: true }).subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        this.db.list('groups/' + snapshot.key + '/lists/' + this.parid).remove();
+      })
+    }).unsubscribe(); // delete list from groups
+
+    this.db.object('lists/' + this.parid).remove(); // delete list from lists
+
     this.modalWindow.close();
     this.router.navigate(['/lists']);
   }
-
-
-
 }

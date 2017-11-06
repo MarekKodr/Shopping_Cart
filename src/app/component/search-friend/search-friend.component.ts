@@ -18,7 +18,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class SearchFriendComponent implements OnInit {
 
   @Input() name: string;
-  
+
   public user: FirebaseListObservable<any>;
   public users: any[];
   public idpar: string;
@@ -44,15 +44,9 @@ export class SearchFriendComponent implements OnInit {
     });
   }
 
-  public addFriend(id: string, email: string, foto: any ): void {
-    let dbRef: any;
-    if (this.name == "friend") {
-      dbRef = firebase.database().ref('/users/' + this.actUser.user.uid + '/friends');
-    }
-    else {
-      dbRef = firebase.database().ref('/groups/' + this.idpar + '/friends');
-    }
-    dbRef.child(id).set({ email: email, foto: foto });
+  public addFriend(id: string, email: string, foto: any): void {
+    firebase.database().ref('/users/' + this.actUser.user.uid + '/friends')
+      .child(id).set({ email: email, foto: foto });
   }
 
   public search($event: any): void {

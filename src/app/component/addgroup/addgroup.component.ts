@@ -31,7 +31,8 @@ export class AddgroupComponent implements OnInit {
 
 
   private addGroup(name: string) {
-    let dbRef = this.groups.push({ name: name });
+    console.log(this.actUser.user.uid);
+    let dbRef = this.db.list('/users/' + this.actUser.user.uid + '/groups').push({ name: name });
     firebase.database().ref('/groups').child(dbRef.key).set({ name: name });
     firebase.database().ref('/groups/' + dbRef.key + '/users')
       .child(this.actUser.user.uid).set({ email: this.actUser.user.email, foto: this.actUser.user.photoURL });

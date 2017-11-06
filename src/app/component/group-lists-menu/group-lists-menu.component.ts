@@ -11,9 +11,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class GroupListsMenuComponent implements OnInit {
 
   private modalWindow: NgbModalRef;
-  public closeResult: String;
-  groups: FirebaseListObservable<any[]>;
-  group: FirebaseObjectObservable<any>;
   private parid: string;
 
   constructor(private modalService: NgbModal, public db: AngularFireDatabase,
@@ -25,33 +22,68 @@ export class GroupListsMenuComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.parid = params['id'];
     });
-    this.groups = this.db.list('/groups');
-    // this.group = this.db.object('/groups/' + this.id);
   }
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 
   open(content) {
     this.modalWindow = this.modalService.open(content);
   }
-  
-  public deleteGroup(): void {
-    this.group = this.db.object('/groups/' + this.parid);
-    this.group.remove();
+
+  private delList(idlist: string): void {
+
+    this.db.list('lists/' + idlist + '/users', { preserveSnapshot: true }).subscribe(delUsers => {
+      delUsers.forEach(delUser => {
+        console.log('mazani listu, ktere nalezeli dane skupine z uzivatele');
+        console.log('users/' + delUser.key + '/lists/' + idlist);
+        this.db.object('users/' + delUser.key + '/lists/' + idlist).remove();
+        this.db.object('users/' + delUser.key + '/groups/' + this.parid).remove();
+      })
+    });
   }
 
-  public updateGroup(newValue: string): void {
-    this.groups.update(this.parid, { name: newValue });
+  public deleteGroup(): void {
+    console.log('deletegroup');
+
+    this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+        // console.log('mazani listu, ktere nalezeli dane skupine z uzivatelu');
+        this.delList(snapshot.key);
+
+      })
+    }); // mazani listu, ktere nalezeli dane skupine z uzivatelu
+
+    // this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+    //   snapshots.forEach(snapshot => {
+    //     console.log('mazani listu, ktere nalezeli dane skupine z listu');
+    //     console.log('lists/' + snapshot.key());
+    //     this.db.object('lists/' + snapshot.key).remove();
+    //   })
+    // }); // mazani listu, ktere nalezeli dane skupine z listu
+    // console.log('mazani skupiny ze skupiny');
+    // console.log('/groups/' + this.parid);
+    // this.db.object('/groups/' + this.parid).remove(); // mazani skupiny ze skupiny
+  }
+
+
+
+  public updateGroup(newValue: string): void { // upravit!!!
+    this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+      snapshots.forEach(snapshot => {
+
+        this.db.list('lists/' + snapshot.key + '/users', { preserveSnapshot: true }).subscribe(delUsers => {
+          delUsers.forEach(delUser => {
+            this.db.object('users/' + delUser.key + '/lists').update({ name: newValue });
+          })
+        });
+
+      })
+    });
+
+    // this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+    //   snapshots.forEach(snapshot => {
+    //     this.db.object('lists/' + snapshot.key).update({ name: newValue });
+    //   })
+    // });
+    // this.db.object('/groups/' + this.parid).update({ name: newValue });
     this.modalWindow.close();
   }
 }
