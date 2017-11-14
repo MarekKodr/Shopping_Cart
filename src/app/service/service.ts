@@ -8,6 +8,8 @@ import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/databa
 
 export class Service {
     public user: User;
+    public friend: boolean;
+
     constructor(private db: AngularFireDatabase) {
         this.user = new User();
     }
@@ -22,5 +24,20 @@ export class Service {
             }
         });
     }
+
+    public isFriend(id: string, email: string) {
+        console.log('USER: ', email);
+
+        this.db.list('/users/' + this.user.uid + '/friends/' + id).subscribe(gr => {
+            if (gr.length == 0) {
+                console.log('this.friend == false');
+                this.friend = false;
+            } else {
+                console.log('this.friend == true');
+                this.friend = true;
+            }
+        });
+    }
+
 
 }

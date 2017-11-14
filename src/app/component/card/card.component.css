@@ -1,7 +1,12 @@
 .card {
     margin: 10px 0px 0px 10px;
+    /* width: 13rem */
 }
 
 .card-img-top {
     margin-left: 35px;
+}
+
+.card-text {
+    height: 85px;
 }

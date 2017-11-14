@@ -1,3 +1,4 @@
+import { ListService } from '../../service/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
@@ -6,46 +7,48 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 
 import { Service } from '../../service/service';
 import { CapitalizePipe } from '../../pipe/capitalize.pipe';
+import { List } from '../../model/list';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
+
 export class ListComponent implements OnInit {
 
-  list: FirebaseObjectObservable<any>;
-
-  items: FirebaseListObservable<any[]>;
-
-  food: FirebaseListObservable<any[]>;
+  public items: FirebaseListObservable<any[]>;
+  public food: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
   private id: string = '';
   private checked: string[] = [];
   public tmp: string = '';
   public count: number = 0;
 
-
   constructor(private db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
     public service: Service,
-    private modalService: NgbModal) {
+    private modalService: NgbModal,
+    public listService: ListService) {
+
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
+  }
 
-    this.list = db.object('/lists/' + this.id);
-    this.items = db.list('/food');
-    
-    this.food = db.list('/food', {
+  ngOnInit() {
+    this.listService.convertList(this.db.object('lists/' + this.id));
+
+    this.items = this.db.list('/food');
+
+    this.food = this.db.list('/food', {
       query: {
         orderByChild: 'lid',
         equalTo: this.id
       }
     });
-  }
 
-  ngOnInit() {
+
   }
 
   open(content) {
@@ -65,15 +68,14 @@ export class ListComponent implements OnInit {
 
   public searchItems(value: string): void {
     this.db.list('/food', {
-          query: {
-            orderByChild: 'value',
-            equalTo: value
-        }
-      }).subscribe(item => {
-        console.log('item: ' + item.length);
-        this.count = item.length;
-      });
-
+      query: {
+        orderByChild: 'value',
+        equalTo: value
+      }
+    }).subscribe(item => {
+      console.log('item: ' + item.length);
+      this.count = item.length;
+    });
   }
 
   public onChange(id: string, flag): void {

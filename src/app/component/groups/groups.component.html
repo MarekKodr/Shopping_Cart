@@ -1,5 +1,7 @@
 <div class="container">
-
+  <br>
+  <h3>My groups</h3>
+  <br>
   <app-addgroup></app-addgroup>
 
 
@@ -7,17 +9,72 @@
     <div class="row">
       <div class="card" style="width: 15rem;" *ngFor="let group of groups | async">
         <div class="card-header">
-          <img class="card-img-top" src="../assets/images/food-icon.png" alt="Card image cap">
+          <img class="card-img-top" src="../assets/images/groups/group.png" alt="Card image cap">
         </div>
         <div class="card-block">
           <h4 class="card-title">{{group?.name }}</h4>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a [routerLink]="['/group', {id: group.$key}]" class="btn btn-primary">Show details</a>
+
+          <div *ngIf="group.note==''">
+            <p class="card-text">This card doesn`t have any note. Do you want to <a href="javascript:void(0)" (click)="open(addNoteModal, group.$key)">add note</a>?</p>
+          </div>
+          <div *ngIf="group.note!=''">
+            <p class="card-text">{{ group?.note }}</p>
+          </div>
+
+          <a [routerLink]="['/group', {id: group.$key}]" class="btn btn-primary" (click)="groupService.setGroup(group.name, group.$key, group.picture, group.admin )">Show details</a>
+
         </div>
         <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+          <small class="text-muted">Create: {{group.admin}}</small>
         </div>
       </div>
     </div>
   </div>
+
+  <div *ngIf="noGroup">
+    <div class="row">
+      <div class="col-9">
+
+        <br>
+        <br>
+        <h1>You have no groups!</h1>
+        <br>
+        <h4>If you want to create them try this </h4>
+      </div>
+
+      <div class="col-3">
+        <img class="arrow" src="../assets/images/arrow/arrow6.png">
+
+      </div>
+    </div>
+
+  </div>
+  <div class="offset"></div>
+
 </div>
+
+
+<ng-template #addNoteModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Enter note</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="comment" class="col-sm-10 col-form-label">Group note:</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" rows="5" id="comment" type="text" class="form-control" [(ngModel)]="note"
+            [class.form-control-danger]="newNote.invalid" placeholder="Enter list name (0-40 characters)" name="newNote" #newNote="ngModel"
+            maxlength="40"> </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addNote(note)">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>

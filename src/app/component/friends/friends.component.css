@@ -1,11 +1,49 @@
-.user_photo {
-    border-radius: 50%;
+h1 {
+ text-align: center;
 }
 
-.myButton {
-    background-color: white;
+h4 {
+ text-align: center;
 }
+
+h3 {
+    font-family: 'Lora', serif;
+}
+
+.card {
+    margin: 10px 0px 0px 10px;
+    border-bottom-width: 2px;
+    width: 350px;
+}
+
 
 .friend {
-    margin-top: -2px;
+    float: left;
+    width: 276px;
+}
+
+.user_photo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-link {
+    float: left;
+    position: relative;
+    left: 12px;
+}
+
+.col-4 {
+    margin-top: 10px;
+}
+
+
+.col-3 {
+    margin-top: 20px;
+}
+
+.arrow {
+    position: relative;
+    right: 205px;
 }

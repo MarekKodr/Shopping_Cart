@@ -22,16 +22,25 @@ import { Service } from '../../service/service';
 export class FriendsComponent implements OnInit {
 
   public friends: FirebaseListObservable<any[]>;
+  public noFriends: boolean;
 
   constructor(public db: AngularFireDatabase,
     public actUser: Service) {
-    this.friends = this.db.list('/users/' + this.actUser.user.uid + '/friends');
   }
 
   ngOnInit() {
+    this.friends = this.db.list('/users/' + this.actUser.user.uid + '/friends');
+    this.friends.subscribe(
+      count => {
+        if (count.length == 0)
+          this.noFriends = true;
+        else
+          this.noFriends = false;
+      });
+
   }
 
   public deleteFriend(id: string): void {
-    this.db.object('/friends/' + id).remove();
+    this.db.object('users/' + this.actUser.user.uid + '/friends/' + id).remove();
   }
 }

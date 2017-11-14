@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
               .set({ email: this.userService.user.email, foto: this.userService.user.photoURL });
           }
         })
+        
         this.router.navigate(['/lists']);
       } else {
         this.userService.user = null;

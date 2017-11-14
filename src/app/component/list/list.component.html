@@ -1,5 +1,7 @@
 <div class="container">
-  <h2>{{ (list | async)?.name | capitalize }}, {{count}}</h2>
+  <h2> {{listService.list?.name}}</h2>
+  &nbsp;
+  <img class="image" [src]=listService.list?.picture alt="Card image cap"> &nbsp;
   <br>
   <div class="row">
     <br>
@@ -17,12 +19,16 @@
                   <i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy</a> &nbsp;
           <a class="btn btn-danger" href="javascript:void(0)" (click)="open(deleteItemModal)">
               <i class="fa fa-trash-o fa-lg"></i> Delete</a>
+
           <span class="search">
               <input type="text" class="form-control" [(ngModel)]="searchItemName" name="searchItem" #searchItem="ngModel" id="formGroupExampleInput"
                 placeholder="Search item">
-              </span>&nbsp;
+          </span>&nbsp;
+
           <a class="btn btn-primary" href="javascript:void(0)" (click)="searchItems(searchItem.value)">
-                    <i class="fa fa-search" aria-hidden="true"></i> Search</a>
+                    <i class="fa fa-search" aria-hidden="true"></i> Search
+          </a>
+
         </div>
       </div>
       <br>

@@ -1,0 +1,12 @@
+.searchResult {
+    position: relative; 
+    /* position: fixed;  */
+    z-index: 100;
+    right: 16px;
+}
+
+.btn-link {
+    /* position: absolute; */
+    margin-left: 170px;
+    margin-top:  -25px;
+}

@@ -1,23 +1,53 @@
 <div class="container">
-  <h3>My Friends</h3>
 
   <br>
-  <app-search-friend></app-search-friend>
+  <h3>My friends</h3>
   <br>
 
 
   <div class="row">
-    <div *ngFor="let friend of friends | async">
 
-      <ul class="list-group">
-        <!-- <div class="row"> -->
-        <li class="list-group-item" style="width: 35rem;">
-          <img class="user_photo" src={{friend?.foto}} width="40" height="40"> &nbsp; &nbsp;
-          <div class="friend"> {{ friend?.email }} </div>
+    <div class="col-8">
+      <div class="row">
+        <div class="card" *ngFor="let friend of friends | async">
 
-          <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
-        </li>
-        <!-- </div> -->
-      </ul>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="friend">
+                <img class="user_photo" [src]=friend?.foto> &nbsp; &nbsp; {{ friend?.email }}
+              </div>
+              <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-4">
+      <app-search-friend></app-search-friend>
     </div>
   </div>
+  <!-- <div class="col-12"> -->
+
+  <div *ngIf="noFriends">
+    <div class="row">
+      <div class="col-8">
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1>You have no friends!</h1>
+        <br>
+        <h4>If you want to find them try search </h4>
+      </div>
+
+      <div class="col-3">
+        <img class="arrow" src="../assets/images/arrow/arrow7.png">
+
+      </div>
+    </div>
+  </div>
+</div>

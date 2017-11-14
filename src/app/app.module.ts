@@ -1,3 +1,4 @@
+import { ListService } from './service/list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -5,7 +6,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awes
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AUTH_PROVIDERS } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable, AngularFireDatabaseModule } from 'angularfire2/database';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { router } from './app.router';
 import { firebaseConfig } from '../environments/firebase.config';
@@ -37,6 +38,10 @@ import { GroupListsComponent } from './component/group-lists/group-lists.compone
 import { GroupListsMenuComponent } from './component/group-lists-menu/group-lists-menu.component';
 import { AddListToGroupComponent } from './component/add-list-to-group/add-list-to-group.component';
 import { SearchInGroupComponent } from './component/search-in-group/search-in-group.component';
+import { GroupEditMenuComponent } from './component/group-edit-menu/group-edit-menu.component';
+import { BroadcastService } from './service/broadcast.service';
+import { GroupService } from './service/group.service';
+import { SearchGroupComponent } from './component/search-group/search-group.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +69,9 @@ import { SearchInGroupComponent } from './component/search-in-group/search-in-gr
     GroupListsComponent,
     GroupListsMenuComponent,
     AddListToGroupComponent,
-    SearchInGroupComponent
+    SearchInGroupComponent,
+    GroupEditMenuComponent,
+    SearchGroupComponent
   ],
   imports: [
     router,
@@ -77,7 +84,8 @@ import { SearchInGroupComponent } from './component/search-in-group/search-in-gr
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [Service],
+  providers: [Service, BroadcastService, ListService, GroupService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

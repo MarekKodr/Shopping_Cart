@@ -1,3 +1,99 @@
-.search {
-    margin: -4% 0% 0% 60%;
+
+/*  List header: ----------------------------------------------------------------------------  */
+
+.listHeader {
+    height: 150px;
+    background-color: #F8F8F8;
+    position: relative;
+    bottom: 25px;
+    border-bottom: solid #DDDDDD 1px;
+    border: solid;
 }
+
+.groupPicture {
+    margin-left: 160px;
+    margin-top: 10px;
+}
+
+.header {
+    position: relative;
+    top: -85px;
+    left: 300px;
+    height: 40px;
+    width: 480px;
+    border: solid;
+}
+
+/*  Menu: ----------------------------------------------------------------------------  */
+.menu {
+    border: solid;
+    width: 200px;
+    height: 500px;
+    margin-left: 45px;
+}
+.col-3 {
+    border: solid;
+}
+.row {
+    border: solid;
+}
+/*  Search: ----------------------------------------------------------------------------  */
+
+.memHeader {
+    /* margin-left: 230px; */
+}
+
+.column {
+    border: solid;
+    margin-left: 230px;
+}
+
+
+.col-5 {
+    position: relative;
+    top: -135px;
+    margin-left: 687px;
+    height: 50px;
+    border: solid;
+}
+
+
+/*  -------------- ----------------------------------------------------------------------  */
+
+
+.members {
+    position: relative;
+    right: 50px;
+    border: solid;
+}
+
+/*  ------------------------------------------------------------------------------------  */
+
+.card {
+    margin: 10px 0px 0px 10px;
+    border-bottom-width: 2px;
+    width: 350px;
+}
+
+.user {
+    float: left;
+    width: 273px;
+}
+
+.list-group-item img { 
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.icon {
+    float: left;
+    width: 20px;
+}
+
+
+.btn-link {
+    position: relative;  
+    right: 6px;
+}
+

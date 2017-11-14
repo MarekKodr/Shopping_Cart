@@ -1,6 +1,9 @@
+import { Group } from '../../model/group';
 import { Component, OnInit } from '@angular/core';
 import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Params, ActivatedRoute } from '@angular/router';
+import { GroupService } from '../../service/group.service';
+import { ListService } from '../../service/list.service';
 
 @Component({
   selector: 'app-group-lists',
@@ -9,16 +12,21 @@ import { Params, ActivatedRoute } from '@angular/router';
 })
 export class GroupListsComponent implements OnInit {
   public parid: string;
-  public items: FirebaseListObservable<any[]>;
+  public lists: FirebaseListObservable<any[]>;
+  public group: Group;
 
-  constructor(public db: AngularFireDatabase,
-    public activatedRoute: ActivatedRoute) { }
+  constructor(
+    public db: AngularFireDatabase,
+    public activatedRoute: ActivatedRoute, 
+    public groupService: GroupService,
+    public listService: ListService ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.parid = params['id'];
     });
-    this.items = this.db.list('groups/' + this.parid + '/lists');
+    this.lists = this.db.list('groups/' + this.parid + '/lists');
+    this.group = this.groupService.group;
   }
 
 }

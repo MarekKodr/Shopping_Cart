@@ -4,6 +4,7 @@ import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/databa
 
 import { Service } from '../../service/service';
 import * as firebase from 'firebase/app';
+import { ListService } from '../../service/list.service';
 
 @Component({
   selector: 'app-addlist',
@@ -14,11 +15,14 @@ export class AddlistComponent implements OnInit {
 
   private modalWindow: NgbModalRef;
   public tmp: string = '';
+  public listPicture: string = '';
 
-  constructor(private modalService: NgbModal,
+  constructor(
+    private modalService: NgbModal,
     public db: AngularFireDatabase,
-    public service: Service) {
-  }
+    public service: Service, 
+    public listService: ListService
+  ) { }
 
   ngOnInit() {
   }
@@ -27,11 +31,8 @@ export class AddlistComponent implements OnInit {
     this.modalWindow = this.modalService.open(content);
   }
 
-  private addList(name: string) { // upravit
-    let dbRef = this.db.list('/lists').push({ name: name });
-    firebase.database().ref('lists/' + dbRef.key + '/users').child(this.service.user.uid).set({ email: this.service.user.email, foto: this.service.user.photoURL });
-    firebase.database().ref('users/' + this.service.user.uid + '/lists').child(dbRef.key).set({ name:  name});
-
+  private addList(name: string, note?: string) {
+    this.listService.addList(name, this.service, note);
     this.modalWindow.close();
     this.tmp = '';
   }

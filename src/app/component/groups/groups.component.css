@@ -1,7 +1,49 @@
+h1 {
+    text-align: center;
+   }
+   
+
+h4 {
+    text-align: center;
+}
+   
+/* h3 {
+    font-family: 'Lora', serif;
+} */
+   
+
 .card {
     margin: 10px 0px 0px 10px;
 }
 
 .card-img-top {
+    border-radius: 100%;
     margin-left: 35px;
+}
+
+.card-text {
+    height: 85px;
+}
+
+.card-text a {
+    position: relative;
+}
+
+
+.col-4 {
+    margin-top: 10px;
+}
+
+
+.col-3 {
+    margin-top: 70px;
+}
+
+.arrow {
+    position: relative;
+    right: 205px;
+}
+
+.offset {
+    height: 300px;
 }
