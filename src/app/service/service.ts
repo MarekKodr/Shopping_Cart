@@ -25,6 +25,17 @@ export class Service {
         });
     }
 
+    public findMember(start, end, grId: string): FirebaseListObservable<User[]> {
+        return this.db.list('/groups/' + grId + '/users', {
+            query: {
+                orderByChild: 'email',
+                limitToFirst: 6,
+                startAt: start,
+                endAt: end
+            }
+        });
+    }
+
     public isFriend(id: string, email: string) {
         console.log('USER: ', email);
 
@@ -39,5 +50,13 @@ export class Service {
         });
     }
 
+    public delUserFromGroup(grid: string, idUser: string): void {
+        this.db.list('groups/' + grid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+                this.db.object('users/' + idUser + '/lists/' + snapshot.key).remove();
+            })
+            this.db.object('users/' + idUser + '/groups/' + grid).remove();
+        });
+    }
 
 }

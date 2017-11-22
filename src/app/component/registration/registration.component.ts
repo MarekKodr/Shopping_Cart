@@ -22,8 +22,6 @@ import { Service } from '../../service/service';
 export class RegistrationComponent implements OnInit {
   private modalWindow: NgbModalRef;
   public user: User;
-  public users: FirebaseListObservable<any[]>;
-  public userAlreadyExist: boolean;
 
 
   constructor(
@@ -31,7 +29,6 @@ export class RegistrationComponent implements OnInit {
     private service: Service,
     private db: AngularFireDatabase,
     public afAuth: AngularFireAuth) {
-    // this.users = db.list('/users');
   }
 
   ngOnInit() {

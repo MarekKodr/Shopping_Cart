@@ -72,6 +72,9 @@ export class SearchGroupComponent implements OnInit {
       this.startWith.next(queryText)
       this.endWith.next(queryText + '\uf8ff')
     }
+    else {
+      this.searchGroups = [];
+    }
   }
 
 }

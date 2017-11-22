@@ -1,4 +1,4 @@
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #createGroup let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Add group</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" [disabled]="name.invalid || note.invalid" class="btn btn-primary" (click)="addGroup(name.value, note?.value)">Create</button>
+      <button type="button" [disabled]="name.invalid" class="btn btn-primary" (click)="addGroup(name.value, note)">Create</button>
       <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
     </div>
   </form>
@@ -34,5 +34,5 @@
 
 
 <div class="my-btn">
-  <button type="button" class="btn btn-info btn-circle btn-xl" (click)="open(content)">+</button>
+  <button type="button" class="btn btn-info btn-circle btn-xl" (click)="open(createGroup)">+</button>
 </div>

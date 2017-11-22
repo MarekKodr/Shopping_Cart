@@ -1,56 +1,18 @@
-<div class="listHeader">
-  <img class="groupPicture" src="../assets/images/groups/group.png" alt="Card image cap">
-  <h2 class="header"> {{ groupService.group?.name }}</h2>
-  <div class="col-5">
-    <app-search-in-group></app-search-in-group>
-  </div>
-</div>
-
-
-
+<app-group-header></app-group-header>
 
 <div class="container">
 
   <div class="row">
-    
-    <div class="menu">
-      <app-groupmenu></app-groupmenu>
-    </div>
-
-    <h4 class="memHeader">Members:</h4>
-
-    <div class="col-8">
-      <div class="members">
-        <div class="row">
-
-          <br>
-
-          <div class="card" *ngFor="let friend of users | async">
-
-            <ul class=" list-group">
-              <li class="list-group-item">
-
-                <div class="user">
-                  <img [src]="friend?.foto"> &nbsp; &nbsp; {{friend.email}}
-                </div>
-
-                <div class="icon" *ngIf="friend.email != groupService.group.admin">
-
-                  <button class="btn-link" (click)="deleteFriend(friend.$key) "> <i class="fa fa-times " aria-hidden="true "></i> </button>
-                </div>
-
-                <div class="icon" *ngIf="friend.email == groupService.group.admin">
-                  <i class="fa fa-star" style="color:gold" aria-hidden="true"></i>
-                </div>
-
-              </li>
-            </ul>
-          </div>
-        </div>
+    <div class="col-3">
+      <div class="menu">
+        <app-groupmenu></app-groupmenu>
       </div>
     </div>
 
+    <div class="col-9">
+      <app-search-in-group></app-search-in-group>
+    </div>
 
+    <app-add-member></app-add-member>
   </div>
-
 </div>

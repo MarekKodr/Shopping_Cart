@@ -55,6 +55,11 @@ export class ListComponent implements OnInit {
     this.modalWindow = this.modalService.open(content);
   }
 
+  public addNote(note?: string) {
+    this.listService.addNote(this.id, note);
+    this.modalWindow.close();
+  }
+
   public search(value: string) {
     this.db.list('/food', {
       query: {

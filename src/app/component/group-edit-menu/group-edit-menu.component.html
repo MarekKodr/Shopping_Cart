@@ -1,17 +1,17 @@
 <li class="nav-item">
-  <a class="nav-link" href="javascript:void(0)" (click)="open(content)">
+  <a class="nav-link" href="javascript:void(0)" (click)="open(renameGroupModal)">
           <i class="fa fa-pencil" aria-hidden="true"></i>  Rename group
         </a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" routerLink="/groups" (click)="delGroup()">
+  <a class="nav-link" href="javascript:void(0)" (click)="open(delGroupModal)">
           <i class="fa fa-times" aria-hidden="true"></i> Delete group
   </a>
 </li>
 
 <li class="nav-item">
-  <a class="nav-link" routerLink="/groups" (click)="leaveGroup()">
+  <a class="nav-link" href="javascript:void(0)" (click)="open(leaveGroupModal)">
     <i class="fa fa-sign-out" aria-hidden="true"></i> Leave group
   </a>
 </li>
@@ -19,9 +19,9 @@
 
 
 
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #renameGroupModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Rename list </h4>
+    <h4 class="modal-title">Rename group </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
         </button>
@@ -30,7 +30,7 @@
 
     <div class="modal-body">
       <div class="form-group">
-        <label for="inputName" class="col-sm-10 col-form-label">List name:</label>
+        <label for="inputName" class="col-sm-10 col-form-label">Group name:</label>
         <div class="form-group" [class.has-success]="!newName.invalid" [class.has-danger]="newName.invalid">
           <div class="col-sm-10">
             <input type="text" class="form-control" [(ngModel)]="name" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"
@@ -44,6 +44,91 @@
     <div class="modal-footer">
       <button type="button" [disabled]="newName.invalid" class="btn btn-primary" (click)="updateGroup(name)">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>
+
+
+
+<ng-template #delGroupModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Delete group </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+          </button>
+  </div>
+  <form>
+
+    <div *ngIf="actUser.user.email==groupService.group.admin">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="col-sm-10">
+            Are you sure you want delete this group?
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="delGroup()">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+      </div>
+    </div>
+
+    <div *ngIf="actUser.user.email!=groupService.group.admin">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="col-sm-10">
+            Delete group can only admin of the group!
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modalWindow.close()">Ok</button>
+      </div>
+    </div>
+
+  </form>
+</ng-template>
+
+
+
+
+<ng-template #leaveGroupModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Leave group</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+          </button>
+  </div>
+  <form>
+
+    <div *ngIf="actUser.user.email!=groupService.group.admin">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="col-sm-10">
+            Are you sure you want leave this group?
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="leaveGroup()">Yes</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+      </div>
+    </div>
+
+    <div *ngIf="actUser.user.email==groupService.group.admin">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="col-sm-10">
+            Admin can not leave the group!
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Ok</button>
+      </div>
     </div>
   </form>
 </ng-template>

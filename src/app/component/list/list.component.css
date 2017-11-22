@@ -1,3 +1,43 @@
+
+/*  List header: ----------------------------------------------------------------------------  */
+
+.list-header {
+    /* border: solid; */
+    height: 120px;
+    margin-top: -25px;
+    background-color: #f7f7f9;
+    border-bottom: solid #DDDDDD 1px;
+}
+
+.row .image {
+    width: 100px;
+    height: 100px;
+    margin-left: 142px;
+    margin-top: 10px;
+}
+
+.row h3 {
+    margin-top: 30px;
+}
+
+.note {
+    position: relative;
+    top: -60px;
+    left: 232px;
+    font-size: 13px;
+    width: 600px;
+}
+
+/* ---------------------------------------------------------------------------------------- */
+
+.col-3 {
+    margin-top: -24px;
+}
+
+.menu {
+    margin-left: 120px;
+}
+
 .scroll {
     padding-top: 5px;
     height: 400px;
@@ -79,3 +119,6 @@
 .list-group-item.purchased:hover {
     background-color: #EAFFEA;
 }
+
+
+

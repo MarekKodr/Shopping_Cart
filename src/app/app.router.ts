@@ -1,3 +1,4 @@
+import { MyListComponent } from './component/my-list/my-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
@@ -18,7 +19,8 @@ export const routes: Routes = [
     { path: 'groups', component: GroupsComponent },
     { path: 'friends', component: FriendsComponent },
     { path: 'group', component: GroupComponent },
-    { path: 'group-lists', component: GroupListsComponent }
+    { path: 'group-lists', component: GroupListsComponent },
+    { path: 'my-list', component: MyListComponent}
 ];
 
 export const router: ModuleWithProviders = RouterModule.forRoot(routes);

@@ -5,42 +5,53 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <img src="/assets/images/shop_bucket_icon.png" width="45" height="45" class="d-inline-block align-top" alt="">
-    <a class="navbar-brand" routerLink="/lists">Shop Bucket</a>
+    <a class="navbar-brand" routerLink="/lists">Shopping Cart</a>
     <div class="collapse navbar-collapse" id="navbarText">
+
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/lists">Lists<span class="sr-only">(current)</span></a>
+
+
+        <li class="nav-item" [class.active]="router.url=='/lists'">
+          <a class="nav-link" routerLink="/lists">Lists</a>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item" [class.active]="router.url=='/groups'">
           <a class="nav-link" routerLink="/groups">Groups</a>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-item" [class.active]="router.url=='/friends'">
           <a class="nav-link" routerLink="/friends">Friends</a>
         </li>
+
+        <li class="nav-item" [class.active]="router.url=='/my-list'">
+          <a class="nav-link" routerLink="/my-list">My list</a>
+        </li>
+
       </ul>
+
       <div class="right-menu">
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                <div class="user-img">
-                  <img src="{{service.user?.photoURL}}" width="30" height="30">
-                </div>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="user-img">
+                <img src="{{service.user?.foto}}" width="30" height="30">
               </div>
-              <div class="col">
-                <div class="user-email">
-                  {{service.user?.email}}
-                </div>
+            </div>
+            <div class="col">
+              <div class="user-email">
+                {{service.user?.email}}
               </div>
-              <div class="col">
-                <ul class="navbar-nav ml-auto">
-                  <li class="nav-item active">
-                    <a class="nav-link" (click)="logout()" routerLink="/login">Logout</a>
-                  </li>
-                </ul>
-              </div>
+            </div>
+            <div class="col">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" (click)="logout()" routerLink="/login">Logout</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
+      </div>
     </div>
   </nav>
 </nav>

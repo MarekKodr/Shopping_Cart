@@ -13,7 +13,7 @@ import { NgbModalRef, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-boo
 export class GroupsComponent implements OnInit {
   public groups: FirebaseListObservable<any[]>;
   public noNote: boolean;
-  public noGroup: boolean;
+  public noGroup: boolean = false;
   private modalWindow: NgbModalRef;
   public grId: string;
 
@@ -41,13 +41,7 @@ export class GroupsComponent implements OnInit {
   }
 
   public addNote(note: string): void {
-    console.log('addNote');
-    this.db.list('groups/' + this.grId + '/users', { preserveSnapshot: true }).subscribe(grUsers => {
-      grUsers.forEach(grUser => {
-        this.db.object('users/' + grUser.key + '/groups/' + this.grId).update({ note: note });
-      })
-    });
-    this.db.object('/groups/' + this.grId).update({ note: note });
+    this.groupService.addNote(note, this.grId);
     this.modalWindow.close();
   }
 }

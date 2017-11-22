@@ -1,5 +1,5 @@
 import { GroupService } from '../../service/group.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject';
@@ -29,8 +29,8 @@ export class SearchInGroupComponent implements OnInit {
   public friend: boolean = false;
 
   constructor(
-    private afAuth: AngularFireAuth, 
-    public db: AngularFireDatabase, 
+    private afAuth: AngularFireAuth,
+    public db: AngularFireDatabase,
     public actUser: Service,
     public activatedRoute: ActivatedRoute,
     public groupService: GroupService) {
@@ -41,43 +41,37 @@ export class SearchInGroupComponent implements OnInit {
           this.user = db.list('users/' + auth.uid);
         }
       });
-  }
-
-  ngOnInit() {
-    console.log('ngOnInit');
-    this.actUser.findCustomers(this.startWith, this.endWith)
-      .subscribe(users => this.users = users);
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.idpar = params['id'];
     });
+    
+    this.search("");
+  }
+
+  ngOnInit() {
+    this.search("");
+
   }
 
 
-  public search($event: any): void {
-    let queryText: string = $event.target.value;
-    if (queryText.length > 0) {
-      this.startWith.next(queryText)
-      this.endWith.next(queryText + '\uf8ff')
-    }
-    else {
-      this.users = [];
-    }
+  public search(text: string): void {
+    this.startWith.next(text)
+    this.endWith.next(text + '\uf8ff')
+    this.actUser.findMember(this.startWith, this.endWith, this.idpar)
+      .subscribe(users => this.users = users);
   }
 
 
-
-  public addFriend(idfriend: string, email: string, foto: any): void {// funguje
-    this.db.object('groups/' + this.idpar + '/users/' + idfriend).set({ email: email, foto: foto });
-    this.db.object('users/' + idfriend + '/groups/' + this.idpar).set({ name: this.groupService.group.name, admin: this.groupService.group.admin });
-
-    this.db.list('groups/' + this.idpar + '/lists').subscribe(newList => {
-      newList.forEach(newList => {
-        this.db.object('users/' + idfriend + '/lists/' + newList.$key).set({ name: newList.name, picture: newList.picture, admin: newList.admin });
-        this.db.object('lists/' + newList.$key + '/users/' + idfriend).set({ uid: idfriend });
+  public deleteFriend(id: string): void {
+    this.db.list('groups/' + this.idpar + '/lists', { preserveSnapshot: true }).subscribe(delList => {
+      delList.forEach(delList => {
+        this.db.object('users/' + id + '/lists/' + delList.key).remove();
+        this.db.object('lists/' + delList.key + '/users/' + id).remove();
       })
-    });  //pridani listu k uzivateli  a pridani uzivatelu k listum
-
+      this.db.object('groups/' + this.idpar + '/users/' + id).remove();
+      this.db.object('users/' + id + '/groups/' + this.idpar).remove();
+    });
   }
 
 }

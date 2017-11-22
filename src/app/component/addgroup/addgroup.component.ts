@@ -31,14 +31,11 @@ export class AddgroupComponent implements OnInit {
     this.modalWindow = this.modalService.open(content);
   }
 
-
+  // user: User, name: string, note?: string
   private addGroup(name: string, note?: string) {
     if(note == null)
       note = '';
-    console.log(this.actUser.user.uid);
-    let dbRef = this.db.list('/users/' + this.actUser.user.uid + '/groups').push({ name: name, admin: this.actUser.user.email, note: note });
-    this.db.object('/groups/' + dbRef.key).set({ name: name, admin: this.actUser.user.email, note: note });
-    this.db.object('/groups/' + dbRef.key + '/users/' + this.actUser.user.uid).set({ email: this.actUser.user.email, foto: this.actUser.user.photoURL });
+    this.goupService.addGroup(this.actUser.user, name, note);
     this.modalWindow.close();
   }
 }

@@ -1,32 +1,29 @@
-import { Group } from '../../model/group';
 import { Component, OnInit } from '@angular/core';
-import { FirebaseListObservable, FirebaseObjectObservable, AngularFireDatabase } from 'angularfire2/database';
-import { Params, ActivatedRoute } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Service } from '../../service/service';
 import { GroupService } from '../../service/group.service';
-import { ListService } from '../../service/list.service';
 
 @Component({
   selector: 'app-group-lists',
   templateUrl: './group-lists.component.html',
   styleUrls: ['./group-lists.component.css']
 })
-export class GroupListsComponent implements OnInit {
-  public parid: string;
-  public lists: FirebaseListObservable<any[]>;
-  public group: Group;
 
-  constructor(
-    public db: AngularFireDatabase,
-    public activatedRoute: ActivatedRoute, 
-    public groupService: GroupService,
-    public listService: ListService ) { }
+export class GroupListsComponent implements OnInit {
+  private idpar: string;
+
+  
+  constructor(private db: AngularFireDatabase,
+    public activatedRoute: ActivatedRoute,
+    public actUser: Service,
+    public groupService: GroupService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
-      this.parid = params['id'];
+      this.idpar = params['id'];
     });
-    this.lists = this.db.list('groups/' + this.parid + '/lists');
-    this.group = this.groupService.group;
+    this.groupService.convertGroup(this.db.object('groups/' + this.idpar));
+    // this.users = this.db.list('groups/' + this.idpar + '/users');
   }
-
 }

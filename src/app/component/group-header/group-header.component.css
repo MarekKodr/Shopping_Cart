@@ -1,0 +1,27 @@
+.groupHeader {
+    height: 120px;
+    margin-top: -25px;
+    background-color: #f7f7f9;
+    border-bottom: solid #DDDDDD 1px;
+}
+
+
+.groupPicture {
+    width: 100px;
+    height: 100px;
+    margin-left: 120px;
+    margin-top: 10px;
+}
+
+.header {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+
+.note {
+    position: relative;
+    top: -60px;
+    left: 230px;
+    font-size: 13px;
+    width: 500px;
+}

@@ -10,12 +10,13 @@ import { List } from '../../model/list';
 })
 export class ListsComponent implements OnInit {
   public lists: FirebaseListObservable<List[]>;
-  public noList: boolean;
+  public noList: boolean = false;
 
   constructor(
     public db: AngularFireDatabase,
     public service: Service
   ) { }
+
 
   ngOnInit() {
     this.lists = this.db.list('users/' + this.service.user.uid + '/lists');

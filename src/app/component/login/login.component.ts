@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
     this.user = afAuth.authState;
     afAuth.authState.subscribe((user: firebase.User) => {
       if (user) {
-        this.userService.user = new User(user.uid, user.email, this.getUsePhotoURL(user.photoURL));
-        this.myUser = new User(user.uid, user.email, this.getUsePhotoURL(user.photoURL));
+        this.userService.user = new User(user.uid, user.email, this.getFoto(user.photoURL));
+        this.myUser = new User(user.uid, user.email, this.getFoto(user.photoURL));
         let usersRef = firebase.database().ref('/users');
 
         usersRef.child(user.uid).once('value', function (snapshot) {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
           if (!exists) {
             console.log('uzivatel neexistuje!!');
             firebase.database().ref('users').child(this.userService.user.uid)
-              .set({ email: this.userService.user.email, foto: this.userService.user.photoURL });
+              .set({ email: this.userService.user.email, foto: this.userService.user.foto });
           }
         })
         
@@ -48,8 +48,8 @@ export class LoginComponent implements OnInit {
 
   }
 
-  public getUsePhotoURL(photoURL: string): string {
-    return !photoURL ? '../../assets/images/user.png' : photoURL;
+  public getFoto(foto: string): string {
+    return !foto ? '../../assets/images/user.png' : foto;
   }
 
   public authentication() {

@@ -1,4 +1,18 @@
 
+.search {
+    position: relative;
+    top: -98px;
+    left: 500px;
+    width: 450px;
+}
+ 
+.search input {
+    width: 300px; 
+    /* border: solid; */
+} 
+
+/*-------------------------------------------------------------------------------------*/
+
 .list-group-item {
     width: 300px;
     height: 40px;
@@ -33,11 +47,54 @@
 
 }
 
-.search {
-    margin-left: 100px;
-    margin-top: 10px;
+
+.searchResult {
+    position: relative;
+    /* top: 150px; */
+    /* left: 460px; */
+    width: 700px;
 }
- 
-.search input {
-    width: 300px; 
-} 
+
+/*  card in members   */
+
+.card {
+    margin: 10px 0px 0px 10px;
+    border-bottom-width: 2px;
+    width: 253px;
+    height: 50px;
+    /* border: solid; */
+}
+
+.user {
+    float: left;
+    width: 215px;
+    font-size: 14px;
+    /* border: solid; */
+    margin-top: -5px;
+    margin-left: -14px;
+}
+
+.list-group-item img { 
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    /* margin-left: -15px; */
+    /* margin-top: -4px; */
+    width: 30px;
+    /* border: solid; */
+}
+
+.icon {
+    position: relative;
+    /* float: left; */
+    width: 20px;
+    /* border: solid; */
+    left: 208px;
+    top: -29px;
+}
+
+
+.btn-link {
+    position: relative;  
+    right: 6px;
+}

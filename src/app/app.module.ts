@@ -42,6 +42,12 @@ import { GroupEditMenuComponent } from './component/group-edit-menu/group-edit-m
 import { BroadcastService } from './service/broadcast.service';
 import { GroupService } from './service/group.service';
 import { SearchGroupComponent } from './component/search-group/search-group.component';
+import { MyListComponent } from './component/my-list/my-list.component';
+import { SearchListComponent } from './component/search-list/search-list.component';
+import { AddNoteGroupComponent } from './component/add-note-group/add-note-group.component';
+import { GroupHeaderComponent } from './component/group-header/group-header.component';
+import { AddMemberComponent } from './component/add-member/add-member.component';
+import { SearchUserComponent } from './component/search-user/search-user.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +77,13 @@ import { SearchGroupComponent } from './component/search-group/search-group.comp
     AddListToGroupComponent,
     SearchInGroupComponent,
     GroupEditMenuComponent,
-    SearchGroupComponent
+    SearchGroupComponent,
+    MyListComponent,
+    SearchListComponent,
+    AddNoteGroupComponent,
+    GroupHeaderComponent,
+    AddMemberComponent,
+    SearchUserComponent
   ],
   imports: [
     router,

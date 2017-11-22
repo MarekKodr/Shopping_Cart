@@ -22,11 +22,12 @@ import { Service } from '../../service/service';
 export class FriendsComponent implements OnInit {
 
   public friends: FirebaseListObservable<any[]>;
-  public noFriends: boolean;
+  public noFriends: boolean = false;
 
-  constructor(public db: AngularFireDatabase,
-    public actUser: Service) {
-  }
+  constructor(
+    public db: AngularFireDatabase,
+    public actUser: Service
+  ) { }
 
   ngOnInit() {
     this.friends = this.db.list('/users/' + this.actUser.user.uid + '/friends');

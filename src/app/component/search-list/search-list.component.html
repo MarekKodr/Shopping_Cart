@@ -1,0 +1,72 @@
+<div class="search">
+  <div class="row">
+    <input type="text" class="form-control" placeholder="Search lists..." (input)="search($event.target.value)"> &nbsp;
+
+    <a class="btn btn-primary" href="javascript:void(0)">
+        <i class="fa fa-search" aria-hidden="true"></i> Search
+    </a>
+  </div>
+</div>
+
+
+<h5 >Lists:</h5>
+<div class="searchResult">
+  
+    <div class="row">
+
+      <div class="card" *ngFor="let list of lists">
+       
+        <div class="card-header">
+          <img class="card-img-top" [src]=list?.picture alt="Card image cap">
+        </div>
+        <div class="card-block">
+          
+          <p class="card-title">{{list.name}}</p>
+          <div *ngIf="list?.note==''">
+            <p class="card-text">This card doesn`t have any note. Do you want to <a href="javascript:void(0)" (click)="open(addNoteModal, list.$key)">add note</a>?</p>
+          </div>
+
+          <div *ngIf="list?.note!=''">
+            <p class="card-text">{{list.note}}</p>
+          </div>
+          
+          <button [routerLink]="['/list', {id: list.$key}]" class="btn btn-primary" (click)="listService.setList(list)">
+            <p>Show details</p>
+          </button>
+
+        </div>
+
+        <div class="card-footer">
+          <small class="text-muted">Created by: {{list?.admin}}</small>
+        </div>
+      </div>
+      
+    </div>
+</div>
+
+
+
+
+<ng-template #addNoteModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Enter note</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="comment" class="col-sm-10 col-form-label">List note:</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" rows="5" id="comment" type="text" class="form-control" [(ngModel)]="note" [class.form-control-danger]="newNote.invalid"
+            placeholder="Enter list note (0-40 characters)" name="newNote" #newNote="ngModel" maxlength="40"> </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addNote(note)">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>

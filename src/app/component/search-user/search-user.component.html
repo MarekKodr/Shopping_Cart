@@ -1,0 +1,23 @@
+<div class="row">
+  
+    <input type="text" class="form-control" placeholder="Search new friends..." (input)="search($event)"> &nbsp;
+    <a class="btn btn-primary" href="javascript:void(0)">
+           <i class="fa fa-search" aria-hidden="true"></i> Search
+    </a>
+  </div>
+  
+  
+  <ul class="list-group" *ngFor="let user of users">
+  
+    <div *ngIf="user.email != actUser.user.email">
+      <li class="list-group-item">
+        <div class="user">
+  
+          <img [src]="user?.foto"> &nbsp; {{user?.email}}
+        </div>
+  
+        <button class="btn-link" (click)="addFriend(user.$key, user.email, user.foto)"> <i class="fa fa-star-o" aria-hidden="true"></i> </button>
+  
+      </li>
+    </div>
+  </ul>

@@ -1,18 +1,17 @@
 <div class="container">
-  <br>
-  <h3>My groups</h3>
-  <br>
+
+  <br><br>
   <app-addgroup></app-addgroup>
 
 
   <div class="column">
     <div class="row">
-      <div class="card" style="width: 15rem;" *ngFor="let group of groups | async">
+      <div class="card"  *ngFor="let group of groups | async">
         <div class="card-header">
           <img class="card-img-top" src="../assets/images/groups/group.png" alt="Card image cap">
         </div>
         <div class="card-block">
-          <h4 class="card-title">{{group?.name }}</h4>
+          <p class="card-title">{{group?.name }}</p>
 
           <div *ngIf="group.note==''">
             <p class="card-text">This card doesn`t have any note. Do you want to <a href="javascript:void(0)" (click)="open(addNoteModal, group.$key)">add note</a>?</p>
@@ -25,7 +24,7 @@
 
         </div>
         <div class="card-footer">
-          <small class="text-muted">Create: {{group.admin}}</small>
+          <small class="text-muted">Created by: {{group.admin}}</small>
         </div>
       </div>
     </div>

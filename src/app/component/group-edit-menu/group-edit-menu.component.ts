@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import { MySubscriable } from '../../util/my-subscriable';
 import { BroadcastService } from '../../service/broadcast.service';
 import { Event } from '../../util/event';
 import { Service } from '../../service/service';
+import { GroupService } from '../../service/group.service';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class GroupEditMenuComponent extends MySubscriable implements OnInit {
     public db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
     public broadcastService: BroadcastService,
-    public actUser: Service) {
+    public actUser: Service,
+    public groupService: GroupService, 
+    private router: Router) {
 
     super(broadcastService);
 
@@ -34,72 +37,34 @@ export class GroupEditMenuComponent extends MySubscriable implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.parid = params['id'];
     });
-
-    // this.subscribe(Event.LIST_DEL_FINISH, () => {
-
-    //   console.log('2 ');
-    // });
-
-
   }
 
   open(content) {
     this.modalWindow = this.modalService.open(content);
   }
 
-  private delList(idlist: string): void {
-    this.db.list('lists/' + idlist + '/users', { preserveSnapshot: true }).subscribe(delUsers => {
-      delUsers.forEach(delUser => {
-        console.log('1 ', 'users/' + delUser.key + '/lists/' + idlist);
-        this.db.object('users/' + delUser.key + '/lists/' + idlist).remove();
-      })
-      console.log('2', 'lists/' + idlist);
-      this.db.object('lists/' + idlist).remove();
-    });
-  }
 
   public delGroup(): void {
-    this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        console.log('mezic: ', 'lists/' + snapshot.key + '/users');
-        this.delList(snapshot.key);
-      })
-      this.db.list('groups/' + this.parid + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
-        snapshots.forEach(snapshot => {
-          console.log('3: ', 'lists/' + snapshot.key + 'users/' + snapshot.key + '/groups/' + this.parid);
-          this.db.object('users/' + snapshot.key + '/groups/' + this.parid).remove();
-        })
-        console.log('4 ');
-        this.db.object('groups/' + this.parid).remove();
-      });
-    });
-
+    this.groupService.delGroup(this.parid);
+    this.modalWindow.close();
+    this.router.navigate(['/groups']);
   }
 
 
-  public updateGroup(newValue: string): void { // asi dobry
-
-    this.db.list('groups/' + this.parid + '/users', { preserveSnapshot: true }).subscribe(delUsers => {
-      delUsers.forEach(delUser => {
-        this.db.object('users/' + delUser.key + '/groups/' + this.parid).update({ name: newValue });
-      })
-
-      this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
-        snapshots.forEach(snapshot => {
-          this.db.object('lists/' + snapshot.key).update({ name: newValue });
-        })
-      }); // mazani listu, ktere nalezeli dane skupine z listu
-      this.db.object('/groups/' + this.parid).update({ name: newValue }); // mazani skupiny ze skupiny
-    });
+  public updateGroup(newName: string): void {
+    this.groupService.renameGroup(newName, this.parid);
     this.modalWindow.close();
   }
 
-  public leaveGroup(): void {
-    this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        this.db.object('users/' + this.actUser.user.uid + '/lists/' + snapshot.key).remove();
-      })
-      this.db.object('users/' + this.actUser.user.uid + '/groups/' + this.parid).remove();
-    });
+  public leaveGroup(): void { // zmena!!
+
+    this.actUser.delUserFromGroup(this.parid, this.actUser.user.uid);
+    // this.db.list('groups/' + this.parid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+    //   snapshots.forEach(snapshot => {
+    //     this.db.object('users/' + this.actUser.user.uid + '/lists/' + snapshot.key).remove();
+    //   })
+    //   this.db.object('users/' + this.actUser.user.uid + '/groups/' + this.parid).remove();
+    // });
+    this.modalWindow.close();
   }
 }

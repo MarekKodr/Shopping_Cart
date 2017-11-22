@@ -32,17 +32,6 @@ export class GroupComponent implements OnInit {
     });
     this.groupService.convertGroup(this.db.object('groups/' + this.idpar));
     this.users = this.db.list('groups/' + this.idpar + '/users');
-
   }
 
-  public deleteFriend(id: string): void {
-    this.db.list('groups/' + this.idpar + '/lists', { preserveSnapshot: true }).subscribe(delList => {
-      delList.forEach(delList => {
-        this.db.object('users/' + id + '/lists/' + delList.key).remove();
-        this.db.object('lists/' + delList.key + '/users/' + id).remove();
-      })
-      this.db.object('groups/' + this.idpar + '/users/' + id).remove();
-      this.db.object('users/' + id + '/groups/' + this.idpar).remove();
-    });
-  }
 }

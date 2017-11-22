@@ -1,4 +1,59 @@
-h1 {
+.card { 
+    margin: 10px 0px 0px 10px;
+    width: 13rem;
+    height: 19rem;
+}
+
+.card-header {
+    background-color: #f7f7f9;
+    height: 120px;
+    position: relative;
+    border-bottom: solid #DDDDDD 1px;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-top: -13px;
+}
+
+.card-img-top {
+    margin-left: 27px;
+    margin-top: -8px;
+    width: 110px;
+    height: 110px;
+}
+
+.card-text {
+    position: relative;
+    top: -10px;
+    height: 65px;
+    font-size: 14px;
+}
+
+.card-block .btn.btn-primary {
+    height: 30px;
+    width: 100px;
+    margin-left: 33px;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: center;
+}
+
+
+.card-footer {
+    margin-top: -17px;
+    height: 30px;
+    border: solid #DDDDDD 1px;
+}
+
+.text-muted {
+    font-size: 10.5px;
+    position: relative;
+    top: -10px;
+}
+
+
+/* h1 {
     text-align: center;
    }
    
@@ -6,11 +61,7 @@ h1 {
 h4 {
     text-align: center;
 }
-   
-/* h3 {
-    font-family: 'Lora', serif;
-} */
-   
+
 
 .card {
     margin: 10px 0px 0px 10px;
@@ -37,13 +88,10 @@ h4 {
 
 .col-3 {
     margin-top: 70px;
-}
+} */
 
 .arrow {
     position: relative;
     right: 205px;
 }
 
-.offset {
-    height: 300px;
-}

@@ -7,6 +7,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { Service } from '../../service/service';
 import { GroupService } from '../../service/group.service';
+import { ListService } from '../../service/list.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class AddListToGroupComponent implements OnInit {
     public db: AngularFireDatabase,
     public activatedRoute: ActivatedRoute,
     public userService: Service,
-    public groupService: GroupService ) {
+    public groupService: GroupService,
+    public listService: ListService ) {
   }
 
   ngOnInit() {
@@ -39,30 +41,11 @@ export class AddListToGroupComponent implements OnInit {
   }
 
 
-  
-  public random(): number {
-    return Math.floor(Math.random() * 10) % 10;
-  }
-
-  public picture(): string {
-    return  "../assets/images/lists/food" + this.random() +  ".png";
-  }
-  
-
-  private addList(name: string) {
-    
-    this.listPicture = this.picture();
-    let listsRef = this.db.list('lists').push({ name: name, picture: this.listPicture, admin: this.userService.user.email });
-
-    this.db.list('groups/' + this.parid + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
-      snapshots.forEach(snapshot => {
-        this.db.object('users/' + snapshot.key + '/lists/' + listsRef.key).set({ name: name, picture: this.listPicture, admin: this.userService.user.email });
-        this.db.object('lists/' + listsRef.key + '/users/' + snapshot.key).set({ uid: snapshot.key });
-      });
-    })
-
-    this.db.object('groups/' + this.parid + '/lists/' + listsRef.key).set({ name: name, picture: this.listPicture, admin: this.userService.user.email });
-    this.db.object('lists/' + listsRef.key + '/groups/' + this.parid).set({ name: this.groupService.group.name});
+  public addList(name: string, note?: string) { //zmena    
+    this.listService.addList(name, this.userService, note, this.parid)
     this.modalWindow.close();
   }
+
+
+
 }
