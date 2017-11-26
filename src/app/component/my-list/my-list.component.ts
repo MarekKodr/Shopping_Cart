@@ -1,4 +1,9 @@
+import { FirebaseListObservable, AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Component, OnInit } from '@angular/core';
+import { Service } from '../../service/service';
+import { ListService } from '../../service/list.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-my-list',
@@ -7,9 +12,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyListComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private db: AngularFireDatabase,
+    public activatedRoute: ActivatedRoute,
+    public service: Service,
+    private modalService: NgbModal,
+    public listService: ListService
+  ) { }
 
   ngOnInit() {
   }
 
+
+  
 }

@@ -16,9 +16,9 @@ export class ListmenuComponent implements OnInit {
   private count: number;
   private modalWindow: NgbModalRef;
   private parid: string;
-  public shared: boolean;
 
-  public shareWith: string;
+  public shareWithName: string = '';
+  public shareWithId: string;
 
   public group: FirebaseListObservable<Group[]>;
 
@@ -60,12 +60,9 @@ export class ListmenuComponent implements OnInit {
 
     this.group.subscribe(gr => {
       this.count = gr.length;
-      if (this.count == 0) {
-        this.shared = false;
-      }
-      else {
-        this.shareWith = gr[0].name;
-        this.shared = true;
+      if (this.count != 0) {
+        this.shareWithName = gr[0].name;
+        // this.shareWithId = gr[0].$key;
       }
     });
   }

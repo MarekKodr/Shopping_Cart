@@ -12,7 +12,9 @@ export class ListService {
 
   constructor(
     public db: AngularFireDatabase
-  ) { }
+  ) {
+    this.list = new List();
+  }
 
   public setList(list: List) {
     this.list = list;
@@ -38,15 +40,15 @@ export class ListService {
 
   /* ADD LIST -------------------------------------------------------------------------------------*/
 
-  private random(): number {
+  public random(): number {
     return Math.floor(Math.random() * 10) % 10;
   }
 
-  private picture(): string {
+  public picture(): string {
     return "../assets/images/lists/food" + this.random() + ".png";
   }
 
-  private addListToGroup(idList, idGroup: string) {
+  public addListToGroup(idList, idGroup: string) {
     this.db.list('groups/' + idGroup + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
       snapshots.forEach(snapshot => {
         this.db.object('users/' + snapshot.key + '/lists/' + idList).set(this.list);
@@ -62,7 +64,8 @@ export class ListService {
       note = '';
     }
     this.list = new List(name, this.picture(), userService.user.email, note);
-    let listRef = this.db.list('lists').push(this.list);
+
+    let listRef = this.db.list('lists').push(this.list); // problemek v testu
     this.db.object('lists/' + listRef.key + '/users/' + userService.user.uid).set(userService.user);
 
     if (idGroup != null) {
@@ -70,7 +73,6 @@ export class ListService {
     }
     else {
       this.db.object('users/' + userService.user.uid + '/lists/' + listRef.key).set(this.list);
-
     }
   }
 

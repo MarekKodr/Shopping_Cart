@@ -30,7 +30,7 @@ export class GroupService {
 
     // name?: string, picture?: string, admin?: string, note?: string
     public addGroup(user: User, name: string, note?: string) {
-        if(note == null) 
+        if (note == null)
             note = '';
         console.log('note: ', note);
         this.group = new Group(name, '', user.email, note);
@@ -87,8 +87,26 @@ export class GroupService {
             snapshots.forEach(snapshot => {
                 this.db.object('lists/' + snapshot.key).update({ name: newName });
             })
-        }); 
-        this.db.object('/groups/' + grid).update({ name: newName }); 
+        });
+        this.db.object('/groups/' + grid).update({ name: newName });
+    }
+
+    public addMember(grid: string, user: User): void { // TODO
+        this.db.list('groups/' + grid + '/lists', { preserveSnapshot: true }).subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+            //    this.db.object('users/' + user.uid + '/lists/' + snapshot.key).set({list: })
+
+            })
+        });
+
+        this.db.list('groups/' + grid + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
+            snapshots.forEach(snapshot => {
+                console.log('2');
+                this.db.object('users/' + snapshot.key + '/groups/' + grid).remove();
+            })
+        });
+
+        this.db.object('groups/' + grid).remove();
     }
 
 

@@ -22,7 +22,9 @@ export class GroupsComponent implements OnInit {
     public service: Service,
     public groupService: GroupService,
     private modalService: NgbModal
-  ) { }
+  ) { 
+    this.noGroup = false;
+  }
 
   ngOnInit() {
     this.groups = this.db.list('users/' + this.service.user.uid + '/groups');

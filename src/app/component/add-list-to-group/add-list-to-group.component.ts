@@ -45,7 +45,4 @@ export class AddListToGroupComponent implements OnInit {
     this.listService.addList(name, this.userService, note, this.parid)
     this.modalWindow.close();
   }
-
-
-
 }

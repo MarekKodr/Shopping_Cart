@@ -1,27 +1,21 @@
 <ul class="nav flex-column">
   <li class="nav-item">
     <a class="nav-link" href="javascript:void(0)" (click)="open(shareListModal)">
-          <i class="fa fa-share-alt" aria-hidden="true"></i>
-          Share list
-        </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">
-            <i class="fa fa-download" aria-hidden="true"></i>
-            Download list
-          </a>
+      <i class="fa fa-share-alt" aria-hidden="true"></i>
+      Share list
+    </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="javascript:void(0)" (click)="open(updateListModal)">
-          <i class="fa fa-pencil" aria-hidden="true"></i>
-        Rename list
-      </a>
+      <i class="fa fa-pencil" aria-hidden="true"></i>
+      Rename list
+    </a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="javascript:void(0)" (click)="open(deleteListModal)">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        Delete list
-      </a>
+      <i class="fa fa-times" aria-hidden="true"></i>
+      Delete list
+    </a>
   </li>
 </ul>
 
@@ -31,8 +25,8 @@
   <div class="modal-header">
     <h4 class="modal-title">Rename list </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <form>
     <div class="modal-body">
@@ -62,8 +56,8 @@
   <div class="modal-header">
     <h4 class="modal-title">Delete list</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
     <p>Are you sure you want to delete the list {{listService.list?.name}}?</p>
@@ -82,18 +76,18 @@
   <div class="modal-header">
     <h4 class="modal-title">Share list </h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <form>
 
     <div class="modal-body">
 
-      <div *ngIf="shared">
-        This list is already shared with group {{ shareWith }}.
+      <div *ngIf="shareWithName!=''">
+        This list is already shared with group {{ shareWithName }}.
       </div>
 
-      <div *ngIf="shared==false">
+      <div *ngIf="shareWithName==''">
         <div class="search">
           <app-search-group></app-search-group>
         </div>

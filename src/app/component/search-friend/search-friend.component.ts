@@ -21,18 +21,18 @@ export class SearchFriendComponent implements OnInit {
 
   public actFriend: FirebaseObjectObservable<any>;
   public user: FirebaseListObservable<any>;
-  public users: any[];
+  public users: FirebaseListObservable<User[]>;
   public idpar: string;
-  public startWith = new Subject();
-  public endWith = new Subject();
   public friend: boolean = false;
+  public email = new Subject();
+
 
   constructor(
-    private afAuth: AngularFireAuth, 
-    public db: AngularFireDatabase, 
+    private afAuth: AngularFireAuth,
+    public db: AngularFireDatabase,
     public actUser: Service,
     public activatedRoute: ActivatedRoute) {
-      
+
     this.afAuth.authState.subscribe(
       (auth) => {
         if (auth != null) {
@@ -42,44 +42,24 @@ export class SearchFriendComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit');
-    this.actUser.findCustomers(this.startWith, this.endWith)
-      .subscribe(users => this.users = users);
-
     this.activatedRoute.params.subscribe((params: Params) => {
       this.idpar = params['id'];
     });
   }
 
   public addFriend(id: string, email: string, foto: string): void {
+    
     firebase.database().ref('/users/' + this.actUser.user.uid + '/friends').child(id).set({ email: email, foto: foto });
   }
 
-
-  public isFriend(id: string, email: string): void {
-
-    console.log('USER: ', email);
-
-    this.db.list('/users/' + this.actUser.user.uid + '/friends/' + id).subscribe(gr => {
-      if (gr.length == 0) {
-        console.log('this.friend == false');
-        this.friend = false;
-      } else {
-        console.log('this.friend == true');
-        this.friend = true;
-      }
-    });
+  public sendRequest(id: string, email: string, foto: string): void {
+    firebase.database().ref('/users/' + id + '/request').child(this.actUser.user.uid).set({ email: this.actUser.user.email, foto: this.actUser.user.foto });
+    firebase.database().ref('/users/' + this.actUser.user.uid + '/sendRequest').child(id).set({ email: email, foto: foto });
   }
 
-  public search($event: any): void {
-    let queryText: string = $event.target.value;
-    if (queryText.length > 0) {
-      this.startWith.next(queryText)
-      this.endWith.next(queryText + '\uf8ff')
-    }
-    else {
-      this.users = [];
-    }
+
+  public search(email: string): void {
+      this.users = this.actUser.findFriend(email);
   }
 }
 

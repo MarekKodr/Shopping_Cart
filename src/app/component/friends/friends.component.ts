@@ -40,8 +40,4 @@ export class FriendsComponent implements OnInit {
       });
 
   }
-
-  public deleteFriend(id: string): void {
-    this.db.object('users/' + this.actUser.user.uid + '/friends/' + id).remove();
-  }
 }

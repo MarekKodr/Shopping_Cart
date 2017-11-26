@@ -55,14 +55,14 @@ export class SearchGroupComponent implements OnInit {
     });
   }
 
-  public shareWithGroup(idGroup: string, groupName: string): void {
+  public shareWithGroup(idGroup: string, groupName: string): void { // UPRAVIT => maze se note!!
     this.db.list('groups/' + idGroup + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
       snapshots.forEach(snapshot => {
-        this.db.object('users/' + snapshot.key + '/lists/' + this.idpar).set({ name: this.listService.list.name, picture: this.listService.list.picture, admin: this.listService.list.admin });
+        this.db.object('users/' + snapshot.key + '/lists/' + this.idpar).set(this.listService.list);
         this.db.object('lists/' + this.idpar + '/users/' + snapshot.key).set({ uid: snapshot.key });
       });
     })
-    this.db.object('groups/' + idGroup + '/lists/' + this.idpar).set({ name: this.listService.list.name, picture:  this.listService.list.picture, admin: this.listService.list.admin});
+    this.db.object('groups/' + idGroup + '/lists/' + this.idpar).set(this.listService.list);
     this.db.object('lists/' + this.idpar + '/groups/' + idGroup).set({ name: groupName });
   }
 

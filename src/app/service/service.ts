@@ -14,16 +14,17 @@ export class Service {
         this.user = new User();
     }
 
-    public findCustomers(start, end): FirebaseListObservable<User[]> {
+    public findFriend(uEmail: string): FirebaseListObservable<User[]> {
+        console.log('findFriend: ', uEmail);
         return this.db.list('/users', {
             query: {
                 orderByChild: 'email',
-                limitToFirst: 6,
-                startAt: start,
-                endAt: end
+                equalTo: uEmail
             }
         });
     }
+
+
 
     public findMember(start, end, grId: string): FirebaseListObservable<User[]> {
         return this.db.list('/groups/' + grId + '/users', {
@@ -38,7 +39,6 @@ export class Service {
 
     public isFriend(id: string, email: string) {
         console.log('USER: ', email);
-
         this.db.list('/users/' + this.user.uid + '/friends/' + id).subscribe(gr => {
             if (gr.length == 0) {
                 console.log('this.friend == false');
@@ -58,5 +58,4 @@ export class Service {
             this.db.object('users/' + idUser + '/groups/' + grid).remove();
         });
     }
-
 }

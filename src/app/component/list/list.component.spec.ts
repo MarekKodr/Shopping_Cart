@@ -1,25 +1,21 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ListComponent } from './list.component';
 
+
 describe('ListComponent', () => {
-  let component: ListComponent;
-  let fixture: ComponentFixture<ListComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ListComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  it('getResult()', () => {
+    let component = new ListComponent( );
+    const result = component.getResult('2');
+    expect(result).toBe('Purchased');
+    const result2 = component.getResult('1');
+    expect(result2).toBe('Reserved');
   });
 
-  it('should be created', () => {
-    expect(component).toBeTruthy();
+  it('resetChecked()', () => {
+    let component = new ListComponent( );
+    component.resetChecked();
+    expect(component.checked.length).toBe(0);
   });
+
+  
 });

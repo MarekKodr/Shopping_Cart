@@ -1,0 +1,21 @@
+<div class="search">
+  <div class="row">
+    <input type="text" class="form-control" placeholder="Search members..." (input)="search($event.target.value)"> &nbsp;
+
+    <a class="btn btn-primary" href="javascript:void(0)">
+               <i class="fa fa-search" aria-hidden="true"></i> Search
+      </a>
+
+  </div>
+</div>
+
+
+<div class="searchResult">
+  <div class="row">
+    <div class="card" *ngFor="let friend of users">
+      <div *ngIf="item.email==actUser.user.email && listService.list.$key == item.lid">
+          {{item.value}}
+      </div>
+    </div>
+  </div>
+</div>

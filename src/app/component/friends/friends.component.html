@@ -1,36 +1,7 @@
-<div class="container">
-
-  <br>
-  
+<app-friend-menu> </app-friend-menu>
 
 
-  <div class="row">
-
-    <div class="col-8">
-      <div class="row">
-        <div class="card" *ngFor="let friend of friends | async">
-
-          <ul class="list-group">
-            <li class="list-group-item">
-              <div class="friend">
-                <img class="user_photo" [src]=friend?.foto> &nbsp; &nbsp; {{ friend?.email }}
-              </div>
-              <button class="btn-link" (click)="deleteFriend(friend.$key)"><i class="fa fa-times" aria-hidden="true"></i></button>
-
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="col-4">
-      <app-search-friend></app-search-friend>
-    </div>
-  </div>
-  <!-- <div class="col-12"> -->
-
-  <div *ngIf="noFriends">
+<!-- <div *ngIf="noFriends">
     <div class="row">
       <div class="col-8">
 
@@ -48,5 +19,6 @@
 
       </div>
     </div>
-  </div>
-</div>
+  </div> -->
+
+<app-add-friend></app-add-friend>

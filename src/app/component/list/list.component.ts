@@ -21,22 +21,24 @@ export class ListComponent implements OnInit {
   public food: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
   private id: string = '';
-  private checked: string[] = [];
+  public checked: string[] = [];
   public tmp: string = '';
   public count: number = 0;
 
-  constructor(private db: AngularFireDatabase,
-    public activatedRoute: ActivatedRoute,
-    public service: Service,
-    private modalService: NgbModal,
-    public listService: ListService) {
+  constructor(private db?: AngularFireDatabase,
+    public activatedRoute?: ActivatedRoute,
+    public service?: Service,
+    private modalService?: NgbModal,
+    public listService?: ListService) {
+
+  }
+
+  ngOnInit() {
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
     });
-  }
 
-  ngOnInit() {
     this.listService.convertList(this.db.object('lists/' + this.id));
 
     this.items = this.db.list('/food');
@@ -60,16 +62,6 @@ export class ListComponent implements OnInit {
     this.modalWindow.close();
   }
 
-  public search(value: string) {
-    this.db.list('/food', {
-      query: {
-        orderByChild: 'value',
-        equalTo: value
-      }
-    }).subscribe(queriedItems => {
-      return queriedItems.length;
-    });
-  }
 
   public searchItems(value: string): void {
     this.db.list('/food', {

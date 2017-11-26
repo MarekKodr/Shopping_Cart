@@ -48,6 +48,12 @@ import { AddNoteGroupComponent } from './component/add-note-group/add-note-group
 import { GroupHeaderComponent } from './component/group-header/group-header.component';
 import { AddMemberComponent } from './component/add-member/add-member.component';
 import { SearchUserComponent } from './component/search-user/search-user.component';
+import { SearchItemMyListComponent } from './component/search-item-my-list/search-item-my-list.component';
+import { ItemService } from './service/item.service';
+import { SearchItemComponent } from './component/search-item/search-item.component';
+import { MyListMenuComponent } from './component/my-list-menu/my-list-menu.component';
+import { AddFriendComponent } from './component/add-friend/add-friend.component';
+import { FriendMenuComponent } from './component/friend-menu/friend-menu.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +89,12 @@ import { SearchUserComponent } from './component/search-user/search-user.compone
     AddNoteGroupComponent,
     GroupHeaderComponent,
     AddMemberComponent,
-    SearchUserComponent
+    SearchUserComponent,
+    SearchItemMyListComponent,
+    SearchItemComponent,
+    MyListMenuComponent,
+    AddFriendComponent,
+    FriendMenuComponent
   ],
   imports: [
     router,
@@ -96,7 +107,7 @@ import { SearchUserComponent } from './component/search-user/search-user.compone
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [Service, BroadcastService, ListService, GroupService],
+  providers: [Service, BroadcastService, ListService, GroupService, ItemService],
   bootstrap: [AppComponent]
 })
 

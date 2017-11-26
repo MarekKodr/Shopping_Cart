@@ -35,15 +35,15 @@ export class SearchUserComponent implements OnInit {
 
   ngOnInit() {
     console.log('ngOnInit');
-    this.actUser.findCustomers(this.startWith, this.endWith)
-      .subscribe(users => this.users = users);
+    // this.actUser.findCustomers(this.startWith, this.endWith)
+    //   .subscribe(users => this.users = users);
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.idpar = params['id'];
     });
   }
 
-  public addFriend(id: string, email: string, foto: string): void {
+  public addMember(id: string, email: string, foto: string): void {
     // this.db.database().ref('/users/' + this.actUser.user.uid + '/friends').child(id).set({ email: email, foto: foto });
   }
 
@@ -63,14 +63,14 @@ export class SearchUserComponent implements OnInit {
   //   });
   // }
 
-  public search($event: any): void {
-    let queryText: string = $event.target.value;
-    if (queryText.length > 0) {
-      this.startWith.next(queryText)
-      this.endWith.next(queryText + '\uf8ff')
-    }
-    else {
-      this.users = [];
-    }
-  }
+  // public search($event: any): void {
+  //   let queryText: string = $event.target.value;
+  //   if (queryText.length > 0) {
+  //     this.startWith.next(queryText)
+  //     this.endWith.next(queryText + '\uf8ff')
+  //   }
+  //   else {
+  //     this.users = [];
+  //   }
+  // }
 }

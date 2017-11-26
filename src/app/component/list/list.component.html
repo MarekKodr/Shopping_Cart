@@ -2,9 +2,9 @@
   <div class="row">
     <img class="image" [src]=listService.list?.picture alt="Card image cap"> &nbsp;
     <h3> {{ listService.list?.name }}</h3>
-
   </div>
 </div>
+
 
 <div class="note">
   <div *ngIf="listService.list?.note!=''">
@@ -18,82 +18,78 @@
 
 
 
-<!-- &nbsp; -->
+<div class="container">
 
+  <div class="row">
 
-
-<br>
-<div class="row">
-  <br>
-
-  <div class="col-3">
-    <div class="menu">
-      <app-listmenu></app-listmenu>
+    <div class="col-3">
+      <div class="menu">
+        <app-listmenu></app-listmenu>
+      </div>
     </div>
-  </div>
 
-  <div class="col-8">
-    <div class="scrollMenu">
-      <div class="row">
-        <a class="btn btn-warning" href="javascript:void(0)" (click)="unSelect()">
+    <div class="col-9">
+      <div class="scrollMenu">
+        <div class="row">
+          <a class="btn btn-warning" href="javascript:void(0)" (click)="unSelect()">
               <i class="fa fa-unlock-alt" aria-hidden="true"></i> Debook</a> &nbsp;
-        <a class="btn btn-warning" href="javascript:void(0)" (click)="bookItems()">
+          <a class="btn btn-warning" href="javascript:void(0)" (click)="bookItems()">
                   <i class="fa fa-lock" aria-hidden="true"></i> Book</a> &nbsp;
-        <a class="btn btn-success" href="javascript:void(0)" (click)="open(buyItemModal)">
+          <a class="btn btn-success" href="javascript:void(0)" (click)="open(buyItemModal)">
                   <i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy</a> &nbsp;
-        <a class="btn btn-danger" href="javascript:void(0)" (click)="open(deleteItemModal)">
+          <a class="btn btn-danger" href="javascript:void(0)" (click)="open(deleteItemModal)">
               <i class="fa fa-trash-o fa-lg"></i> Delete</a>
 
-        <span class="search">
+          <span class="search">
               <input type="text" class="form-control" [(ngModel)]="searchItemName" name="searchItem" #searchItem="ngModel" id="formGroupExampleInput"
                 placeholder="Search item">
           </span>&nbsp;
 
-        <a class="btn btn-primary" href="javascript:void(0)" (click)="searchItems(searchItem.value)">
+          <a class="btn btn-primary" href="javascript:void(0)" (click)="searchItems(searchItem.value)">
                     <i class="fa fa-search" aria-hidden="true"></i> Search
           </a>
 
+        </div>
       </div>
-    </div>
-    <br>
-    <div class="scroll">
-      <ul class="list-group" *ngFor="let i of food | async">
-        <li class="list-group-item" [class.reserved]="i?.reserved=='1'" [class.purchased]="i?.reserved=='2'">
+      <br>
+      <div class="scroll">
+        <ul class="list-group" *ngFor="let i of food | async">
+          <li class="list-group-item" [class.reserved]="i?.reserved=='1'" [class.purchased]="i?.reserved=='2'">
 
-          <!-- ****************************************************************************** -->
+            <!-- ****************************************************************************** -->
 
-          <span *ngIf="i?.reserved!='2'">
+            <span *ngIf="i?.reserved!='2'">
               
               <div class="box_and_name">
                 <label class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="i.value" #cv [checked]=false                                       
                   (change)="onChange(i?.$key,cv.checked)">
                   <span class="custom-control-indicator"></span>
-          <span class="custom-control-description">
+            <span class="custom-control-description">
                     <b>{{i?.value}}</b>
                   </span>
-          </label>
-    </div>
+            </label>
+      </div>
 
 
-    <div class="quantity">
-      {{i?.quantity}} Ks
-    </div>
-    <div class="quantityButtons">
-      <a class="btn-sm btn-success" href="javascript:void(0)" (click)="increaseQuantity(i?.$key, i?.quantity)">
-                    <i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a class="btn-sm btn-danger" href="javascript:void(0)" (click)="reduceQuantity(i?.$key, i?.quantity)">
+      <div class="quantity">
+        {{i?.quantity}} Ks
+      </div>
+      <div class="quantityButtons">
+        <a class="btn-sm btn-success" href="javascript:void(0)" (click)="increaseQuantity(i?.$key, i?.quantity)">
+            <i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class="btn-sm btn-danger" href="javascript:void(0)" (click)="reduceQuantity(i?.$key, i?.quantity)">
                     <i class="fa fa-minus" aria-hidden="true"></i></a>
-    </div>
+      </div>
 
-    <div class="nodeOfItem">
-      {{i?.node}}
-    </div>
+      <div class="nodeOfItem">
+        {{i?.node}}
+      </div>
 
-    </span>
-    <!-- ****************************************************************************** -->
+      </span>
+      <!-- ****************************************************************************** -->
 
-    <span *ngIf="i?.reserved=='2'">
+      <span *ngIf="i?.reserved=='2'">
       <div class="box_and_name">
           <i class="fa fa-check" aria-hidden="true"></i>
           &nbsp;<b>{{i?.value}}</b>
@@ -101,29 +97,30 @@
                 <span class="quantity">
                    {{i?.quantity}} Ks  
                 </span>
-    <div class="nodeOfItem"></div>
-    <div class="quantityButtons"></div>
-    </span>
+      <div class="nodeOfItem"></div>
+      <div class="quantityButtons"></div>
+      </span>
 
-    <div class="buyer" *ngIf="i.reserved!='0'">
-      <div class="row">
-        {{getResult(i?.reserved)}} by: {{i?.email}}
+      <div class="buyer" *ngIf="i.reserved!='0'">
+        <div class="row">
+          {{getResult(i?.reserved)}} by: {{i?.email}}
+        </div>
       </div>
+
+
+      <div class="buyer none" *ngIf="i.reserved=='0'">
+        Nobady reserve this item.
+      </div>
+
+      <!-- ****************************************************************************** -->
+
+      </li>
+      </ul>
     </div>
-
-
-    <div class="buyer none" *ngIf="i.reserved=='0'">
-      Nobady reserve this item.
-    </div>
-
-    <!-- ****************************************************************************** -->
-
-    </li>
-    </ul>
+    <br>
+    <app-add-item></app-add-item>
+    <br>
   </div>
-  <br>
-  <app-add-item></app-add-item>
-  <br>
 </div>
 
 <ng-template #deleteItemModal let-c="close" let-d="dismiss">

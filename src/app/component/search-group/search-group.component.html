@@ -1,20 +1,17 @@
-<div class="position">
-  <div class="row">
-    <div class="column">
-      <input type="text" class="form-control" placeholder="Search groups..." (input)="search($event)">
-    </div>
-    &nbsp;
-    <a class="btn btn-primary" href="javascript:void(0)">
-           <i class="fa fa-search" aria-hidden="true"></i> Search
-        </a>
-  </div>
-
-  <div class="searchResult">
-    <ul class="list-group" style="width: 14rem; height: 2rem" *ngFor="let group of searchGroups">
-      <li class="list-group-item">
-        {{group?.name}}
-        <button class="btn-link" (click)="shareWithGroup(group.$key, group.name)">  <i class="fa fa-share-alt" aria-hidden="true"></i> </button>
-      </li>
-    </ul>
-  </div>
+<div class="row">
+  <input type="text" class="form-control" placeholder="Search groups..." (input)="search($event)"> &nbsp;
+  <a class="btn btn-primary" href="javascript:void(0)">
+    <i class="fa fa-search" aria-hidden="true"></i> Search
+  </a>
 </div>
+
+
+<ul class="list-group" style="width: 14rem; height: 2rem" *ngFor="let group of searchGroups">
+  <li class="list-group-item">
+    <div class="groupName">
+      {{group?.name}}
+    </div>
+    <button class="btn-link" (click)="shareWithGroup(group.$key, group.name)">  <i class="fa fa-share-alt" aria-hidden="true"></i> </button>
+
+  </li>
+</ul>

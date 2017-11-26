@@ -6,6 +6,10 @@ import 'zone.js/dist/sync-test';
 import 'zone.js/dist/jasmine-patch';
 import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
+
+import { AngularFireDatabase, FirebaseListObservable, AngularFireDatabaseModule } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
