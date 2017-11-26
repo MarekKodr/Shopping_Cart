@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Params, ActivatedRoute } from '@angular/router';
-import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
-import { Subject } from 'rxjs/Subject';
-import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Service } from '../../service/service';
 import { ListService } from '../../service/list.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+import { Service } from '../../service/service';
+import { CapitalizePipe } from '../../pipe/capitalize.pipe';
+import { List } from '../../model/list';
+import { Subject } from 'rxjs/Subject';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { ItemService } from '../../service/item.service';
 
 @Component({

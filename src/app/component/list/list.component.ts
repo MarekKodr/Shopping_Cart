@@ -18,6 +18,7 @@ import { List } from '../../model/list';
 export class ListComponent implements OnInit {
 
   public items: FirebaseListObservable<any[]>;
+  
   public food: FirebaseListObservable<any[]>;
   private modalWindow: NgbModalRef;
   private id: string = '';

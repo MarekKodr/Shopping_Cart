@@ -14,7 +14,7 @@ export class GroupService {
         public listService: ListService
     ) { }
 
-    public setGroup(name?: string, gid?: string, picture?: string, admin?: string, note?: string): void {
+    public setGroup(name?: string, picture?: string, admin?: string, note?: string): void {
         this.group.name = name;
         this.group.picture = picture;
         this.group.admin = admin;

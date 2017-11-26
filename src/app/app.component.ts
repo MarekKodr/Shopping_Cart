@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
   user: Observable<firebase.User>;
   public myUser: User;
 
-  constructor(public router: Router,
+  constructor(
+    public router: Router,
     public service: Service,
     public afAuth: AngularFireAuth
   ) {

@@ -10,15 +10,23 @@ import { List } from '../model/list';
 
 import server from "karma-firebase-server";
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
-
-
-
+import { Group } from '../model/group';
+import { ListService } from './list.service';
+  
 describe('GroupService', () => {
     let db: AngularFireDatabase;
     let groupService: GroupService;
+    let listService: ListService;
+
+    it('create an instance of Group', () => {
+        let group = new Group();
+        expect(group).toBeTruthy();
+    });
 
     it('setGroup()', () => {
-        groupService.setGroup('testGroup', null, null, 'test@test.com', 'testNote');
+        listService = new ListService(db);
+        groupService = new GroupService(db, listService);
+        groupService.setGroup('testGroup', null, 'test@test.com', 'testNote');
         expect(groupService.group.name).toBe('testGroup');
         expect(groupService.group.picture).toBe(null);
         expect(groupService.group.admin).toBe('test@test.com');
