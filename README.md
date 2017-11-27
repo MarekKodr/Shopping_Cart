@@ -8,7 +8,7 @@ Install npm terminal: https://nodejs.org/en/download/.
 
 ## Install additions
 
- Go to your project directory and instal additions `npm install`.
+ Go to your project directory and install additions `npm install`.
 
 ## Development server
 
