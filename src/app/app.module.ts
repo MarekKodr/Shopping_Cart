@@ -1,3 +1,4 @@
+import { Mock } from 'protractor/built/driverProviders';
 import { ListService } from './service/list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

@@ -43,6 +43,7 @@ export class AddItemComponent implements OnInit {
   ngOnInit() {
     this.findItem(this.startWith, this.endWith)
     .subscribe(fItems => this.fItems = fItems);
+
   }
 
   private addItem(name: string, quantity: number, node: string): void {

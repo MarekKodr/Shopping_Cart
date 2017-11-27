@@ -1,3 +1,4 @@
+// import { NgModel } from '@angular/forms/src/directives';
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { AddListToGroupComponent } from './add-list-to-group.component';
@@ -8,7 +9,7 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ AddListToGroupComponent ]
+//       declarations: [ AddListToGroupComponent]
 //     })
 //     .compileComponents();
 //   }));

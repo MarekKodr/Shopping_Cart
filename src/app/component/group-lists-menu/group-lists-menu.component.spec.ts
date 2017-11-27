@@ -1,6 +1,7 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { GroupListsMenuComponent } from './group-lists-menu.component';
+// import { GroupEditMenuComponent } from '../group-edit-menu/group-edit-menu.component';
 
 // describe('GroupListsMenuComponent', () => {
 //   let component: GroupListsMenuComponent;
@@ -8,7 +9,7 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ GroupListsMenuComponent ]
+//       declarations: [ GroupListsMenuComponent, GroupEditMenuComponent ]
 //     })
 //     .compileComponents();
 //   }));

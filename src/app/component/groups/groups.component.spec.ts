@@ -1,3 +1,4 @@
+// import { AddgroupComponent } from '../addgroup/addgroup.component';
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { GroupsComponent } from './groups.component';
@@ -8,7 +9,7 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ GroupsComponent ]
+//       declarations: [ GroupsComponent,  AddgroupComponent ]
 //     })
 //     .compileComponents();
 //   }));

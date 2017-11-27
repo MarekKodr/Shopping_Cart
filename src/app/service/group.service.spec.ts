@@ -16,15 +16,22 @@ import { ListService } from './list.service';
 describe('GroupService', () => {
     let db: AngularFireDatabase;
     let groupService: GroupService;
-    let listService: ListService;
 
     it('create an instance of Group', () => {
         let group = new Group();
         expect(group).toBeTruthy();
     });
 
+    it('create an instance of GroupService', () => {
+        let listService = new ListService(db);
+        let groupService = new GroupService(db, listService);
+        expect(groupService).toBeTruthy();
+    });
+
     it('setGroup()', () => {
-        listService = new ListService(db);
+        let listService = new ListService(db);
+        let list = new List('testListName', null, 'test@test.com', 'test');
+        listService.setList(list);
         groupService = new GroupService(db, listService);
         groupService.setGroup('testGroup', null, 'test@test.com', 'testNote');
         expect(groupService.group.name).toBe('testGroup');

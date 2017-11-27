@@ -35,9 +35,12 @@
 
         <div class="form-group" [class.has-success]="!newName.invalid" [class.has-danger]="newName.invalid">
           <div class="col-sm-10">
-            <input type="text" class="form-control" [(ngModel)]="name" [class.form-control-success]="!newName.invalid" [class.form-control-danger]="newName.invalid"
-              placeholder="Enter list name (3-20 characters)" name="newName" #newName="ngModel" maxlength="20" minlength="3"
-              required>
+            
+            <input type="text" class="form-control" [(ngModel)]="name" [class.form-control-success]="!newName.invalid" 
+                                                                      [class.form-control-danger]="newName.invalid"
+              placeholder="Enter list name (3-20 characters)" name="newName" #newName="ngModel" required maxlength="20" minlength="3"
+            />
+
           </div>
         </div>
 
@@ -89,7 +92,7 @@
 
       <div *ngIf="shareWithName==''">
         <div class="search">
-          <app-search-group></app-search-group>
+          <app-search-group></app-search-group>   <!-- ERROR in test!-->
         </div>
       </div>
     </div>

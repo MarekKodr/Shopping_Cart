@@ -10,11 +10,12 @@ export class GroupService {
     public group: Group;
 
     constructor(
-        public db: AngularFireDatabase,
-        public listService: ListService
+        public db?: AngularFireDatabase,
+        public listService?: ListService
     ) { }
 
     public setGroup(name?: string, picture?: string, admin?: string, note?: string): void {
+        this.group = new Group;
         this.group.name = name;
         this.group.picture = picture;
         this.group.admin = admin;

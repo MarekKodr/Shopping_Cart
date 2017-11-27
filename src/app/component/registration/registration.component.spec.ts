@@ -1,6 +1,8 @@
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { RegistrationComponent } from './registration.component';
+// import { NgModel } from '@angular/forms/src/directives';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // describe('RegistrationComponent', () => {
 //   let component: RegistrationComponent;
@@ -8,7 +10,8 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ RegistrationComponent ]
+//       declarations: [ RegistrationComponent ],
+//       imports: [ NgbModule.forRoot()]
 //     })
 //     .compileComponents();
 //   }));

@@ -48,7 +48,6 @@ export class SearchFriendComponent implements OnInit {
   }
 
   public addFriend(id: string, email: string, foto: string): void {
-    
     firebase.database().ref('/users/' + this.actUser.user.uid + '/friends').child(id).set({ email: email, foto: foto });
   }
 

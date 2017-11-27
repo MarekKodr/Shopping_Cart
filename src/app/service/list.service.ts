@@ -49,6 +49,7 @@ export class ListService {
   }
 
   public addListToGroup(idList, idGroup: string) {
+    
     this.db.list('groups/' + idGroup + '/users', { preserveSnapshot: true }).subscribe(snapshots => {
       snapshots.forEach(snapshot => {
         this.db.object('users/' + snapshot.key + '/lists/' + idList).set(this.list);

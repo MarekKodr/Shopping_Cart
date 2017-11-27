@@ -4,16 +4,19 @@
     <div class="col">
       <label>Name:</label>
       <input type="text" class="form-control text-capitalize" placeholder="Enter your name of item" (input)="search($event.target.value)"
-        [(ngModel)]="nameOdName" name="newItem" #newItem="ngModel">
+        [(ngModel)]="nameOdName" name="newItem" #newItem="ngModel"/>
 
-      <div *ngFor="let i of fItems">
-        kkk
-       <button> {{i.name}} </button>
-      </div>
+
+      <ul class="list-group" *ngFor="let i of fItems">
+        <li class="list-group-item">
+          <button class="btn-link" (click)="nameOdName=i.name"> {{i.name}} </button>
+        </li>
+      </ul>
+
 
       <label>Quantity:</label>
       <input type="text" class="form-control" placeholder="Enter quality of item" [(ngModel)]="nameOfQuantity" name="newValue"
-        #newValue="ngModel">
+        #newValue="ngModel"/>
     </div>
 
     <div class="col">

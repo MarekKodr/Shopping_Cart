@@ -1,3 +1,4 @@
+import { GroupService } from '../../service/group.service';
 import { Component, OnInit } from '@angular/core';
 import { FirebaseObjectObservable, FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject';
@@ -10,6 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   templateUrl: './search-user.component.html',
   styleUrls: ['./search-user.component.css']
 })
+
 export class SearchUserComponent implements OnInit {
 
   public actFriend: FirebaseObjectObservable<any>;
@@ -23,7 +25,8 @@ export class SearchUserComponent implements OnInit {
     private afAuth: AngularFireAuth,
     public db: AngularFireDatabase,
     public actUser: Service,
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute,
+    public groupService: GroupService) {
 
     this.afAuth.authState.subscribe(
       (auth) => {
@@ -33,44 +36,48 @@ export class SearchUserComponent implements OnInit {
       });
   }
 
+  public findFriend(start, end): FirebaseListObservable<any[]> {
+    return this.db.list('/users/' + this.actUser.user.uid + '/friends', {
+      query: {
+        orderByChild: 'email',
+        limitToFirst: 6,
+        startAt: start,
+        endAt: end
+      }
+    });
+  }
+
   ngOnInit() {
-    console.log('ngOnInit');
-    // this.actUser.findCustomers(this.startWith, this.endWith)
-    //   .subscribe(users => this.users = users);
+    this.findFriend(this.startWith, this.endWith)
+      .subscribe(searchFriend => this.users = searchFriend);
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.idpar = params['id'];
     });
+
+
   }
 
-  public addMember(id: string, email: string, foto: string): void {
-    // this.db.database().ref('/users/' + this.actUser.user.uid + '/friends').child(id).set({ email: email, foto: foto });
+  public addMember(idfriend: string, email: string, foto: any): void {
+    this.db.object('groups/' + this.idpar + '/users/' + idfriend).set({ email: email, foto: foto });
+    this.db.object('users/' + idfriend + '/groups/' + this.idpar).set({ name: this.groupService.group.name, admin: this.groupService.group.admin });
+
+    this.db.list('groups/' + this.idpar + '/lists').subscribe(newList => {
+      newList.forEach(newList => {
+        this.db.object('users/' + idfriend + '/lists/' + newList.$key).set({ name: newList.name, picture: newList.picture, admin: newList.admin });
+        this.db.object('lists/' + newList.$key + '/users/' + idfriend).set({ uid: idfriend });
+      })
+    });  //pridani listu k uzivateli  a pridani uzivatelu k listum
   }
 
-
-  // public isFriend(id: string, email: string): void {
-
-  //   console.log('USER: ', email);
-
-  //   this.db.list('/users/' + this.actUser.user.uid + '/friends/' + id).subscribe(gr => {
-  //     if (gr.length == 0) {
-  //       console.log('this.friend == false');
-  //       this.friend = false;
-  //     } else {
-  //       console.log('this.friend == true');
-  //       this.friend = true;
-  //     }
-  //   });
-  // }
-
-  // public search($event: any): void {
-  //   let queryText: string = $event.target.value;
-  //   if (queryText.length > 0) {
-  //     this.startWith.next(queryText)
-  //     this.endWith.next(queryText + '\uf8ff')
-  //   }
-  //   else {
-  //     this.users = [];
-  //   }
-  // }
+  public search($event: any): void {
+    let queryText: string = $event.target.value;
+    if (queryText.length > 0) {
+      this.startWith.next(queryText)
+      this.endWith.next(queryText + '\uf8ff')
+    }
+    else {
+      this.users = [];
+    }
+  }
 }

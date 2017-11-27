@@ -1,3 +1,6 @@
+// import { SearchFriendComponent } from '../search-friend/search-friend.component';
+// import { FriendMenuComponent } from '../friend-menu/friend-menu.component';
+// import { AddFriendComponent } from '../add-friend/add-friend.component';
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { FriendsComponent } from './friends.component';
@@ -8,7 +11,7 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ FriendsComponent ]
+//       declarations: [ FriendsComponent, AddFriendComponent, FriendMenuComponent, SearchFriendComponent ]
 //     })
 //     .compileComponents();
 //   }));

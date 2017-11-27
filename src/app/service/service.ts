@@ -3,15 +3,18 @@ import { Observable } from 'rxjs/Observable';
 
 import { User } from '../model/user';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 
 export class Service {
     public user: User;
     public friend: boolean;
+    public afAuth: AngularFireAuth;
 
     constructor(private db: AngularFireDatabase) {
         this.user = new User();
+        
     }
 
     public findFriend(uEmail: string): FirebaseListObservable<User[]> {

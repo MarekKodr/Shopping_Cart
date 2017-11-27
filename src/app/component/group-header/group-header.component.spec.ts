@@ -1,3 +1,4 @@
+// import { AddNoteGroupComponent } from '../add-note-group/add-note-group.component';
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { GroupHeaderComponent } from './group-header.component';
@@ -8,7 +9,7 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ GroupHeaderComponent ]
+//       declarations: [ GroupHeaderComponent, AddNoteGroupComponent ]
 //     })
 //     .compileComponents();
 //   }));

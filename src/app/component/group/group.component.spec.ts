@@ -1,6 +1,10 @@
+// import { SearchInGroupComponent } from '../search-in-group/search-in-group.component';
+// import { GroupmenuComponent } from '../groupmenu/groupmenu.component';
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // import { GroupComponent } from './group.component';
+// import { GroupHeaderComponent } from '../group-header/group-header.component';
+// import { AddMemberComponent } from '../add-member/add-member.component';
 
 // describe('GroupComponent', () => {
 //   let component: GroupComponent;
@@ -8,7 +12,7 @@
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ GroupComponent ]
+//       declarations: [ GroupComponent, GroupHeaderComponent, GroupmenuComponent, SearchInGroupComponent, AddMemberComponent ]
 //     })
 //     .compileComponents();
 //   }));

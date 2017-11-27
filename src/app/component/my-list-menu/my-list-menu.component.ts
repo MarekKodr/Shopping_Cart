@@ -13,11 +13,9 @@ export class MyListMenuComponent implements OnInit {
   public items: FirebaseListObservable<any[]>;
   public flag: string = '';
 
-  constructor(private db: AngularFireDatabase,
-    // public activatedRoute: ActivatedRoute,
-    public service: Service,
-    // private modalService: NgbModal,
-    public listService: ListService) { }
+  constructor(private db?: AngularFireDatabase,
+    public service?: Service,
+    public listService?: ListService) { }
   
     ngOnInit() {
       this.items = this.db.list('/food', {

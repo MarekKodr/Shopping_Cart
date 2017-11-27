@@ -13,8 +13,8 @@ export class FriendMenuComponent implements OnInit {
   public flag: string = '';
 
   constructor(
-    public db: AngularFireDatabase,
-    public actUser: Service) { }
+    public db?: AngularFireDatabase,
+    public actUser?: Service) { }
 
   ngOnInit() {
   }
