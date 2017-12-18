@@ -1,0 +1,22 @@
+textarea {
+    height: 108px;
+}
+
+
+
+
+
+.list-group-item {
+    
+    /* margin-left: -14px; */
+    height: 35px;
+    width: 395px;
+}
+
+
+
+.btn-link {
+    position: relative;
+    left: -20px;
+    /* margin: left; */
+}

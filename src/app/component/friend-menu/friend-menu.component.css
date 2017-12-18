@@ -1,0 +1,37 @@
+.card {
+    margin: 10px 0px 0px 10px;
+    border-bottom-width: 2px;
+    width: 350px;
+}
+
+
+.friend {
+    float: left;
+    width: 276px;
+}
+
+.user_photo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.btn-link {
+    float: left;
+    position: relative;
+    left: 12px;
+}
+
+
+
+.menu {
+    position: relative;
+    margin-top: 75px;
+    height: 1000px;
+    /* border: solid; */
+}
+
+.users {
+    margin-top: 75px;
+    /* border: solid; */
+}

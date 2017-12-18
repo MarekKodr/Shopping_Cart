@@ -1,0 +1,45 @@
+.full {
+    /* background: url('../assets/images/background.png') no-repeat center center fixed; */
+    /* background-color: #F1F1F1; */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height:100%;
+}
+
+.slider {
+    height: 700px;
+    /* background:rgba(1,1,1,0.5); */
+    background-color: #EEEEEE;
+    border: solid 1px #DEDEDE;
+}
+
+.slider button {
+    /* position: absolute;
+    top: 50%;
+    left: 39%; */
+    height: 60px;
+    width: 250px;
+    margin-left: 39%;
+    margin-top: 15px;
+    /* background-color: #25D425; */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 15px; 
+    border: none;
+}
+
+.slider button:hover {
+    /* background-color: #819081; */
+    border: none;
+}  
+
+.logo h1 {
+    color: #3333ff;
+    margin-top: 3%;
+}
+
+.logo {
+    margin-left: 15%;
+}

@@ -1,0 +1,21 @@
+<div class="row">
+  <input type="text" class="form-control" [(ngModel)]="tmp" placeholder="Search new friends..." name="tmp" #newName="ngModel"> &nbsp;
+  <a class="btn btn-primary" (click)="search(tmp)">
+    <i class="fa fa-search" aria-hidden="true"></i> Search
+  </a>
+</div>
+
+
+<ul class="list-group" *ngFor="let u of users | async">
+
+  <div *ngIf="u.email != actUser.user.email">
+    <li class="list-group-item">
+      <div class="user">
+
+        <img [src]="u?.foto"> &nbsp; {{u?.email}}
+      </div>
+
+      <button class="btn-link" (click)="sendRequest(u.$key, u.email, u.foto)"> <i class="fa fa-star-o" aria-hidden="true"></i> </button>
+    </li>
+  </div>
+</ul>

@@ -1,0 +1,31 @@
+<form>
+  <h6>Add new item</h6>
+  <div class="row">
+    <div class="col">
+      <label>Name:</label>
+      <input type="text" class="form-control text-capitalize" placeholder="Enter your name of item" (input)="search($event.target.value)"
+        [(ngModel)]="nameOdName" name="newItem" #newItem="ngModel"/>
+
+
+      <ul class="list-group" *ngFor="let i of fItems">
+        <li class="list-group-item">
+          <button class="btn-link" (click)="nameOdName=i.name"> {{i.name}} </button>
+        </li>
+      </ul>
+
+
+      <label>Quantity:</label>
+      <input type="text" class="form-control" placeholder="Enter quality of item" [(ngModel)]="nameOfQuantity" name="newValue"
+        #newValue="ngModel"/>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="exampleTextarea">Note:</label>
+        <textarea placeholder="..." class="form-control" id="exampleTextarea" rows="5" [(ngModel)]="newValueNode" name="newNode"
+          #newNode="ngModel"></textarea>
+      </div>
+    </div>
+  </div>
+  <button type="button" (click)="addItem(newItem.value, newValue.value, newNode.value)" class="btn btn-block btn-primary">Add</button>
+</form>

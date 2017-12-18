@@ -1,0 +1,61 @@
+
+ .search {
+    position: relative;
+    /* top: -98px; */
+    left: 940px;
+    width: 350px;
+}
+ 
+.search input {
+    width: 200px; 
+} 
+
+.searchResult {
+    position: relative;
+    width: 800px; 
+} 
+
+.fa.fa-check {
+    color: green;
+}
+
+.box_and_name {
+    position: relative;
+    float: left;
+    width: 210px;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+.quantity {
+    float: left;
+    width: 50px;
+}
+
+.quantityButtons {
+    float: left;
+    width: 80px;
+}
+
+.nodeOfItem {
+    float: left;
+    left: 360px;
+    color: #4D4D4D;
+    font-size: 13px;
+    width: 220px;
+    height: 24px;
+    overflow: hidden;
+}
+
+
+
+.inList {
+    float: left;
+    padding-left: 50px;
+    color: #9F9F9F;
+    font-size: 13px;
+    margin-top: -7px;
+}
+
+
+

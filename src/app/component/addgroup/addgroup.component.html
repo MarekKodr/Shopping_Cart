@@ -1,0 +1,38 @@
+<ng-template #createGroup let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add group</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="inputName" class="col-sm-10 col-form-label">Group name:</label>
+
+        <div class="form-group" [class.has-success]="!name.invalid" [class.has-danger]="name.invalid">
+          <div class="col-sm-10">
+            <input type="text" class="form-control" [(ngModel)]="groupName" [class.form-control-success]="!name.invalid" [class.form-control-danger]="name.invalid"
+              placeholder="Enter group name (3-20 characters)" name="name" #name="ngModel" maxlength="20" minlength="3" required>
+          </div>
+        </div>
+
+        <label for="comment" class="col-sm-10 col-form-label">Group note:</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" rows="5" id="comment" type="text" class="form-control" [(ngModel)]="note" [class.form-control-danger]="newNote.invalid"
+            placeholder="Enter list name (0-40 characters)" name="newNote" #newNote="ngModel" maxlength="40"> </textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" [disabled]="name.invalid" class="btn btn-primary" (click)="addGroup(name.value, note)">Create</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<div class="my-btn">
+  <button type="button" class="btn btn-info btn-circle btn-xl" (click)="open(createGroup)">+</button>
+</div>

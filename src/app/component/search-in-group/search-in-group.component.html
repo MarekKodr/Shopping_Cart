@@ -1,0 +1,38 @@
+<div class="search">
+  <div class="row">
+    <input type="text" class="form-control" placeholder="Search members..." (input)="search($event.target.value)"> &nbsp;
+
+    <a class="btn btn-primary" href="javascript:void(0)">
+             <i class="fa fa-search" aria-hidden="true"></i> Search
+    </a>
+
+  </div>
+</div>
+
+
+<h5 class="memHeader">Members:</h5>
+<div class="searchResult">
+  <div class="row">
+    <div class="card" *ngFor="let friend of users">
+
+      <ul class=" list-group">
+        <li class="list-group-item">
+
+          <div class="user">
+            <img [src]="friend?.foto"> &nbsp; {{friend.email}}
+          </div>
+
+          <div class="icon" *ngIf="friend.email != groupService.group.admin">
+
+            <button class="btn-link" (click)="deleteFriend(friend.$key) "> <i class="fa fa-times " aria-hidden="true "></i> </button>
+          </div>
+
+          <div class="icon" *ngIf="friend.email == groupService.group.admin">
+            <i class="fa fa-star" style="color:gold" aria-hidden="true"></i>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

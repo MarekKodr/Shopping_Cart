@@ -1,0 +1,75 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-3">
+      <div class="menu">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" (click)="showFriends()">
+              <i class="fa fa-address-book" aria-hidden="true"></i>
+              Friends
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" (click)="showSendReq()">
+              <i class="fa fa-paper-plane" aria-hidden="true"></i>
+              Send requests
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:void(0)" (click)="showMyReq()">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+              My requests
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- {{flag}} -->
+    <div class="col-9">
+      <div class="row">
+        <div class="users">
+
+            <div *ngIf="flag=='showFriends'">
+                <h5>Friends</h5>
+            </div>
+            <div *ngIf="flag=='showSendReq'">
+                <h5>Send request</h5>
+            </div>
+            <div *ngIf="flag=='showMyReq'">
+              <h5>My request</h5>
+            </div>
+          <div class="card" *ngFor="let friend of users | async">
+
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="friend">
+                  <img class="user_photo" [src]=friend?.foto> &nbsp; &nbsp; {{ friend?.email }}
+                </div>
+
+                <div *ngIf="flag=='showFriends'">
+                  <button class="btn-link" (click)="delFriend(friend.$key)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+                <div *ngIf="flag=='showSendReq'">
+                  <button class="btn-link" (click)="delRequest(friend.$key)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+                <div *ngIf="flag=='showMyReq'">
+                  <button class="btn-link" (click)="acceptRequest(friend.$key, friend.email, friend.foto)">
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,27 @@
+<div class="container">
+  
+  <br><br>
+  <app-card></app-card>
+
+  <div *ngIf="noList">
+    <div class="row">
+      <div class="col-9">
+
+        <br>
+        <br>
+        <h1>You have no lists!</h1>
+        <br>
+        <h4>If you want to create them try this </h4>
+      </div>
+
+      <div class="col-3">
+        <img class="arrow" src="../assets/images/arrow/arrow6.png">
+
+      </div>
+    </div>
+
+  </div>
+  <div class="offset"></div>
+</div>
+
+<app-addlist></app-addlist>
