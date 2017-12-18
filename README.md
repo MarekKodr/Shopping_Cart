@@ -10,6 +10,11 @@ Install npm terminal: https://nodejs.org/en/download/.
 
  Go to your project directory and install additions `npm install`.
 
+## Firebase connection
+
+For Firebase connection edit /src/environments/firebase.config.ts due to your Firebase database.
+How to get your firebase config? Go to your database Overview and click `Add another app`, then `Add Firebase to your web app` and copy your settings.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
